@@ -8,9 +8,11 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-			<PasswordChangeBox 
-				
-			/>
+			<div className="lvd-passwordchangebox-demo-container">
+				<PasswordChangeBox 
+					requireExistingPassword={true}
+				/>
+			</div>
 		);
 	}
 }
