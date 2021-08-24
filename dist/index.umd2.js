@@ -7,7 +7,7 @@
 		exports["PasswordChangeBox"] = factory(require("@fluentui/react"), require("prop-types"), require("react"));
 	else
 		root["PasswordChangeBox"] = factory(root["FluentUIReact"], root["PropTypes"], root["React"]);
-})(self, function(__WEBPACK_EXTERNAL_MODULE__13__, __WEBPACK_EXTERNAL_MODULE__12__, __WEBPACK_EXTERNAL_MODULE__11__) {
+})(self, function(__WEBPACK_EXTERNAL_MODULE__3__, __WEBPACK_EXTERNAL_MODULE__17__, __WEBPACK_EXTERNAL_MODULE__16__) {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
 /* 0 */,
@@ -18,25 +18,151 @@ return /******/ (() => { // webpackBootstrap
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_0__);
+
+var PasswordChangeBoxMessageType = {
+  info: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.info,
+  error: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.error,
+  blocked: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.blocked,
+  severeWarning: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.severeWarning,
+  success: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.success,
+  warning: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.warning
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PasswordChangeBoxMessageType);
+
+/***/ }),
+/* 3 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
+
+/***/ }),
+/* 4 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var BackButtonPositions = {
+  left: 'left',
+  right: 'right'
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BackButtonPositions);
+
+/***/ }),
+/* 5 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "passwordChangeBoxMessageTypeToOfficeUiMessageType": () => (/* binding */ passwordChangeBoxMessageTypeToOfficeUiMessageType),
+/* harmony export */   "successMessage": () => (/* binding */ successMessage),
+/* harmony export */   "errorMessage": () => (/* binding */ errorMessage),
+/* harmony export */   "warningMessage": () => (/* binding */ warningMessage),
+/* harmony export */   "infoMessage": () => (/* binding */ infoMessage)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
+
+
+var _messageTypeMapping;
+
+
+
+var messageTypeMapping = (_messageTypeMapping = {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.info, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.info), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.error, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.error), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.warning, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.warning), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.severeWarning, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.severeWarning), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.success, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.success), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.blocked, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.blocked), _messageTypeMapping);
+function passwordChangeBoxMessageTypeToOfficeUiMessageType(passwordChangeBoxMessageType) {
+  var officeUiMessageType = null;
+
+  if (!!passwordChangeBoxMessageType && messageTypeMapping.hasOwnProperty(passwordChangeBoxMessageType)) {
+    officeUiMessageType = messageTypeMapping[passwordChangeBoxMessageType];
+  }
+
+  return officeUiMessageType;
+}
+function successMessage(message) {
+  return {
+    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.success,
+    message: message
+  };
+}
+function errorMessage(message) {
+  return {
+    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.error,
+    message: message
+  };
+}
+function warningMessage(message) {
+  return {
+    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.warning,
+    message: message
+  };
+}
+function infoMessage(message) {
+  return {
+    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.info,
+    message: message
+  };
+}
+
+/***/ }),
+/* 6 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _defineProperty)
+/* harmony export */ });
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+/***/ }),
+/* 7 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ PasswordChangeBox)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(16);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(12);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(17);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(13);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(3);
 /* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(14);
+/* harmony import */ var lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(18);
 /* harmony import */ var lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(15);
-/* harmony import */ var _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(18);
-/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(19);
+/* harmony import */ var _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(5);
+/* harmony import */ var _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(19);
+/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(4);
 
 
 
@@ -358,6 +484,8 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
         underlined: this._isUnderlined(),
         onPasswordChanged: this._handleNewPasswordChanged,
         onGetErrorMessage: this._getNewPasswordErrorMessage,
+        passwordStrengthProps: newPasswordProps.passwordStrengthProps,
+        passwordRulesProps: newPasswordProps.passwordRulesProps,
         required: true
       });
       return this._renderField(newPasswordElement);
@@ -369,7 +497,9 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       return {
         label: newPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.label,
         placeholder: newPasswordProps.hasOwnProperty('placeholder') ? newPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.placeholder,
-        emptyErrorMessage: newPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.messages.empty
+        emptyErrorMessage: newPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.messages.empty,
+        passwordStrengthProps: newPasswordProps.passwordStrengthProps || null,
+        passwordRulesProps: newPasswordProps.passwordRulesProps || null
       };
     }
   }, {
@@ -532,7 +662,7 @@ PasswordChangeBox.propTypes = {
 };
 
 /***/ }),
-/* 3 */
+/* 8 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -547,7 +677,7 @@ function _classCallCheck(instance, Constructor) {
 }
 
 /***/ }),
-/* 4 */
+/* 9 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -572,7 +702,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 /***/ }),
-/* 5 */
+/* 10 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -589,7 +719,7 @@ function _assertThisInitialized(self) {
 }
 
 /***/ }),
-/* 6 */
+/* 11 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -597,7 +727,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _inherits)
 /* harmony export */ });
-/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
+/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -615,7 +745,7 @@ function _inherits(subClass, superClass) {
 }
 
 /***/ }),
-/* 7 */
+/* 12 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -633,7 +763,7 @@ function _setPrototypeOf(o, p) {
 }
 
 /***/ }),
-/* 8 */
+/* 13 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -641,8 +771,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _possibleConstructorReturn)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var _assertThisInitialized_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
+/* harmony import */ var _assertThisInitialized_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
 
 
 function _possibleConstructorReturn(self, call) {
@@ -656,7 +786,7 @@ function _possibleConstructorReturn(self, call) {
 }
 
 /***/ }),
-/* 9 */
+/* 14 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -681,7 +811,7 @@ function _typeof(obj) {
 }
 
 /***/ }),
-/* 10 */
+/* 15 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -697,33 +827,26 @@ function _getPrototypeOf(o) {
 }
 
 /***/ }),
-/* 11 */
+/* 16 */
 /***/ ((module) => {
 
 "use strict";
-module.exports = __WEBPACK_EXTERNAL_MODULE__11__;
+module.exports = __WEBPACK_EXTERNAL_MODULE__16__;
 
 /***/ }),
-/* 12 */
+/* 17 */
 /***/ ((module) => {
 
 "use strict";
-module.exports = __WEBPACK_EXTERNAL_MODULE__12__;
+module.exports = __WEBPACK_EXTERNAL_MODULE__17__;
 
 /***/ }),
-/* 13 */
-/***/ ((module) => {
-
-"use strict";
-module.exports = __WEBPACK_EXTERNAL_MODULE__13__;
-
-/***/ }),
-/* 14 */
+/* 18 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(13), __webpack_require__(12), __webpack_require__(11));
+		module.exports = factory(__webpack_require__(3), __webpack_require__(17), __webpack_require__(16));
 	else {}
 })(self, function(__WEBPACK_EXTERNAL_MODULE__13__, __WEBPACK_EXTERNAL_MODULE__12__, __WEBPACK_EXTERNAL_MODULE__11__) {
 return /******/ (() => { // webpackBootstrap
@@ -2333,89 +2456,7 @@ __nested_webpack_require_61959__.r(__webpack_exports__);
 });
 
 /***/ }),
-/* 15 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "passwordChangeBoxMessageTypeToOfficeUiMessageType": () => (/* binding */ passwordChangeBoxMessageTypeToOfficeUiMessageType),
-/* harmony export */   "successMessage": () => (/* binding */ successMessage),
-/* harmony export */   "errorMessage": () => (/* binding */ errorMessage),
-/* harmony export */   "warningMessage": () => (/* binding */ warningMessage),
-/* harmony export */   "infoMessage": () => (/* binding */ infoMessage)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
-
-
-var _messageTypeMapping;
-
-
-
-var messageTypeMapping = (_messageTypeMapping = {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.info, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.info), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.error, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.error), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.warning, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.warning), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.severeWarning, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.severeWarning), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.success, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.success), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.blocked, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.blocked), _messageTypeMapping);
-function passwordChangeBoxMessageTypeToOfficeUiMessageType(passwordChangeBoxMessageType) {
-  var officeUiMessageType = null;
-
-  if (!!passwordChangeBoxMessageType && messageTypeMapping.hasOwnProperty(passwordChangeBoxMessageType)) {
-    officeUiMessageType = messageTypeMapping[passwordChangeBoxMessageType];
-  }
-
-  return officeUiMessageType;
-}
-function successMessage(message) {
-  return {
-    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.success,
-    message: message
-  };
-}
-function errorMessage(message) {
-  return {
-    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.error,
-    message: message
-  };
-}
-function warningMessage(message) {
-  return {
-    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.warning,
-    message: message
-  };
-}
-function infoMessage(message) {
-  return {
-    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.info,
-    message: message
-  };
-}
-
-/***/ }),
-/* 16 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ _defineProperty)
-/* harmony export */ });
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-/***/ }),
-/* 17 */
+/* 19 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2423,29 +2464,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_0__);
-
-var PasswordChangeBoxMessageType = {
-  info: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.info,
-  error: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.error,
-  blocked: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.blocked,
-  severeWarning: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.severeWarning,
-  success: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.success,
-  warning: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.warning
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PasswordChangeBoxMessageType);
-
-/***/ }),
-/* 18 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
+/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 
 var PasswordChangeBoxDefaults = {
   title: 'Change password',
@@ -2481,21 +2500,6 @@ var PasswordChangeBoxDefaults = {
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PasswordChangeBoxDefaults);
-
-/***/ }),
-/* 19 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-var BackButtonPositions = {
-  left: 'left',
-  right: 'right'
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BackButtonPositions);
 
 /***/ })
 /******/ 	]);
@@ -2572,9 +2576,21 @@ var __webpack_exports__ = {};
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PasswordChangeBox": () => (/* reexport safe */ _PasswordChangeBox_jsx__WEBPACK_IMPORTED_MODULE_0__.default)
+/* harmony export */   "successMessage": () => (/* reexport safe */ _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__.successMessage),
+/* harmony export */   "errorMessage": () => (/* reexport safe */ _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__.errorMessage),
+/* harmony export */   "warningMessage": () => (/* reexport safe */ _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__.warningMessage),
+/* harmony export */   "infoMessage": () => (/* reexport safe */ _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__.infoMessage),
+/* harmony export */   "BackButtonPositions": () => (/* reexport safe */ _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_1__.default),
+/* harmony export */   "PasswordChangeBoxMessageType": () => (/* reexport safe */ _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_0__.default),
+/* harmony export */   "PasswordChangeBox": () => (/* reexport safe */ _PasswordChangeBox_jsx__WEBPACK_IMPORTED_MODULE_3__.default)
 /* harmony export */ });
-/* harmony import */ var _PasswordChangeBox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _PasswordChangeBox_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
+
+
+
 
 
 })();

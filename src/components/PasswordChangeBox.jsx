@@ -291,6 +291,8 @@ export default class PasswordChangeBox extends React.Component {
 				underlined={this._isUnderlined()}
 				onPasswordChanged={this._handleNewPasswordChanged}
 				onGetErrorMessage={this._getNewPasswordErrorMessage}
+				passwordStrengthProps={newPasswordProps.passwordStrengthProps}
+				passwordRulesProps={newPasswordProps.passwordRulesProps}
 				required={true}
 			/>
 		);
@@ -307,7 +309,11 @@ export default class PasswordChangeBox extends React.Component {
 				? newPasswordProps.placeholder || null
 				: PasswordChangeBoxDefaults.newPassword.placeholder,
 			emptyErrorMessage: newPasswordProps.emptyErrorMessage
-				|| PasswordChangeBoxDefaults.newPassword.messages.empty
+				|| PasswordChangeBoxDefaults.newPassword.messages.empty,
+			passwordStrengthProps: newPasswordProps.passwordStrengthProps 
+				|| null,
+			passwordRulesProps: newPasswordProps.passwordRulesProps 
+				|| null
 		};
 	}
 

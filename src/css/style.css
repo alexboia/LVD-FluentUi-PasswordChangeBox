@@ -1,6 +1,7 @@
 @import '~normalize.css';
 @import '~office-ui-fabric-core/dist/css/fabric.css';
 @import './components/index.css';
+@import '~lvd-fluentui-passwordbox/dist/style.css';
 
 html {
 	overflow: hidden;
