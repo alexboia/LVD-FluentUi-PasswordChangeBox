@@ -5,10 +5,98 @@ import { TextField, PrimaryButton, DefaultButton } from '@fluentui/react';
 import { PasswordBox } from 'lvd-fluentui-passwordbox';
 
 import PasswordChangeBoxDefaults from './PasswordChangeBoxDefaults.js';
+import BackButtonPositions from './BackButtonPositions.js';
 
 export default class PasswordChangeBox extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			existingPassword: null,
+			newPassword: null,
+			confirmNewPassword: null
+		};
+
+		this._handleExistingPasswordChanged =
+			this._handleExistingPasswordChanged.bind(this);
+		this._handleNewPasswordChanged = 
+			this._handleNewPasswordChanged.bind(this);
+		this._handleConfirmNewPasswordChanged = 
+			this._handleConfirmNewPasswordChanged.bind(this);
+		this._handleChangePasswordButtonClicked = 
+			this._handleChangePasswordButtonClicked.bind(this);
+		this._handleBackButtonClicked = 
+			this._handleBackButtonClicked.bind(this);
+	}
+
+	_isFormValid() {
+		const formValues = this._getFormValues();
+		const existingValuesRequired = this._isExistingPasswordRequired();
+
+		return (!existingValuesRequired && !!formValues.existingPassword)
+			&& !!formValues.newPassword 
+			&& !!formValues.confirmNewPassword
+			&& (formValues.newPassword == formValues.confirmNewPassword);
+	}
+
+	_getFormValues() {
+		return {
+			existingPassword: this.state.existingPassword,
+			newPassword: this.state.newPassword,
+			confirmNewPassword: this.state.confirmNewPassword
+		};
+	}
+
+	_handleExistingPasswordChanged(event) {
+		event.preventDefault();
+		const oldValues = this._getFormValues();
+
+		this.setState({
+			existingPassword: event.target.value
+		}, () => this._raiseValuesChanged(oldValues));
+	}
+
+	_raiseValuesChanged(oldValues) {
+		const newValues = this._getFormValues();
+		if (this.props.onPasswordChangeValuesChanged != null) {
+			this.props.onPasswordChangeValuesChanged(oldValues, newValues);
+		}
+	}
+
+	_handleNewPasswordChanged(event) {
+		event.preventDefault();
+		const oldValues = this._getFormValues();
+
+		this.setState({
+			newPassword: event.target.value
+		}, () => this._raiseValuesChanged(oldValues));
+	}
+
+	_handleConfirmNewPasswordChanged(event) {
+		event.preventDefault();
+		const oldValues = this._getFormValues();
+
+		this.setState({
+			confirmNewPassword: event.target.value
+		}, () => this._raiseValuesChanged(oldValues));
+	}
+
+	_handleChangePasswordButtonClicked(event) {
+		event.preventDefault();
+		const values = this._getFormValues();
+
+		if (this.props.onPasswordChangedRequested != null) {
+			this.props.onPasswordChangedRequested(values);
+		}
+	}
+
+	_handleBackButtonClicked(event) {
+		event.preventDefault();
+		const values = this._getFormValues();
+
+		if (this.props.onBackRequested != null) {
+			this.props.onBackRequested(values);
+		}
 	}
 	
 	render() {
@@ -24,6 +112,7 @@ export default class PasswordChangeBox extends React.Component {
 				<div className="lvd-passwordchange-box-button-container">
 					{this._renderPasswordChangeActionButton()}
 					{this._renderBackActionButtonButton()}
+					<div className="lvd-passwordchange-box-clear"></div>
 				</div>
 			</div>
 		);
@@ -67,12 +156,17 @@ export default class PasswordChangeBox extends React.Component {
 
 	_renderExistingPasswordInputField() {
 		if (this._isExistingPasswordRequired()) {
+			const existingPasswordProps = this._getExistingPasswordProps();
 			const existingPasswordElement = (
 				<TextField 
 					type="password"
-					label="Current password:"
-					placeholder="Please enter your current password"
+					label={existingPasswordProps.label}
+					placeholder={existingPasswordProps.placeholder}
 					canRevealPassword={this._canReveal()}
+					disabled={this._isDisabled()}
+					readOnly={this._isReadOnly()}
+					underlined={this._isUnderlined()}
+					onChange={this._handleExistingPasswordChanged}
 					required={true}
 				/>
 			);
@@ -83,10 +177,35 @@ export default class PasswordChangeBox extends React.Component {
 		}
 	}
 
+	_getExistingPasswordProps() {
+		const existingPasswordProps = this.props.existingPasswordProps || {};
+		return {
+			label: existingPasswordProps.label 
+				|| PasswordChangeBoxDefaults.existingPassword.label,
+			placeholder: existingPasswordProps.hasOwnProperty('placeholder')
+				? existingPasswordProps.placeholder || null
+				: PasswordChangeBoxDefaults.existingPassword.placeholder,
+			emptyErrorMessage: existingPasswordProps.emptyErrorMessage
+				|| PasswordChangeBoxDefaults.existingPassword.messages.empty
+		};
+	}
+
 	_canReveal() {
 		return this.props.hasOwnProperty('canReveal')
 			? !!this.props.canReveal
 			: true;
+	}
+
+	_isDisabled() {
+		return !!this.props.disabled;
+	}
+
+	_isReadOnly() {
+		return !!this.props.readOnly;
+	}
+
+	_isUnderlined() {
+		return !!this.props.underlined;
 	}
 
 	_renderField(element) {
@@ -100,11 +219,16 @@ export default class PasswordChangeBox extends React.Component {
 	}
 
 	_renderMainPasswordInputField() {
+		const newPasswordProps = this._getNewPasswordProps();
 		const newPasswordElement = (
 			<PasswordBox 
-				label="New password:"
-				placeholder="Please enter your new password"
+				label={newPasswordProps.label}
+				placeholder={newPasswordProps.placeholder}
 				canReveal={this._canReveal()}
+				disabled={this._isDisabled()}
+				readOnly={this._isReadOnly()}
+				underlined={this._isUnderlined()}
+				onChange={this._handleNewPasswordChanged}
 				required={true}
 			/>
 		);
@@ -112,18 +236,49 @@ export default class PasswordChangeBox extends React.Component {
 		return this._renderField(newPasswordElement);
 	}
 
+	_getNewPasswordProps() {
+		const newPasswordProps = this.props.newPasswordProps || {};
+		return {
+			label: newPasswordProps.label 
+				|| PasswordChangeBoxDefaults.newPassword.label,
+			placeholder: newPasswordProps.hasOwnProperty('placeholder')
+				? newPasswordProps.placeholder || null
+				: PasswordChangeBoxDefaults.newPassword.placeholder,
+			emptyErrorMessage: newPasswordProps.emptyErrorMessage
+				|| PasswordChangeBoxDefaults.newPassword.messages.empty
+		};
+	}
+
 	_renderPasswordConfirmationField() {
+		const confirmNewPasswordProps = this._getConfirmNewPasswordProps();
 		const passwordConfirmationElement = (
 			<TextField 
 				type="password"
-				label="Password confirmation:"
-				placeholder="Please confirm new password"
+				label={confirmNewPasswordProps.label}
+				placeholder={confirmNewPasswordProps.placeholder}
 				canRevealPassword={this._canReveal()}
+				disabled={this._isDisabled()}
+				readOnly={this._isReadOnly()}
+				underlined={this._isUnderlined()}
+				onChange={this._handleConfirmNewPasswordChanged}
 				required={true}
 			/>
 		);
 
 		return this._renderField(passwordConfirmationElement);
+	}
+
+	_getConfirmNewPasswordProps() {
+		const confirmNewPasswordProps = this.props.confirmNewPasswordProps || {};
+		return {
+			label: confirmNewPasswordProps.label 
+				|| PasswordChangeBoxDefaults.confirmNewPassword.label,
+			placeholder: confirmNewPasswordProps.hasOwnProperty('placeholder')
+				? confirmNewPasswordProps.placeholder || null
+				: PasswordChangeBoxDefaults.confirmNewPassword.placeholder,
+			emptyErrorMessage: confirmNewPasswordProps.emptyErrorMessage
+				|| PasswordChangeBoxDefaults.confirmNewPassword.messages.empty
+		};
 	}
 
 	_renderPasswordChangeActionButton() {
@@ -135,6 +290,7 @@ export default class PasswordChangeBox extends React.Component {
 				disabled={!enableSubmit}
 				className="lvd-passwordchange-box-btn lvd-passwordchange-box-passwordchange-btn"
 				text={passwordChangeButtonProps.label} 
+				onClick={this._handleChangePasswordButtonClicked}
 			/>
 		);
 	}
@@ -148,12 +304,15 @@ export default class PasswordChangeBox extends React.Component {
 	}
 
 	_renderBackActionButtonButton() {
-		const backActionButtonprops = this._getBackActionButtonProps();
-		return backActionButtonprops.show && (
+		const enableSubmit = this._isFormValid() && !this._isDisabled();
+		const backActionButtonProps = this._getBackActionButtonProps();
+
+		return backActionButtonProps.show && (
 			<DefaultButton primary={false}
-				className="lvd-passwordchange-box-btn lvd-passwordchange-box-back-btn"
-				text={backActionButtonprops.label} 
-				disabled={false}
+				className={this._computeBackActionButtonCssClassName(backActionButtonProps)}
+				text={backActionButtonProps.label} 
+				disabled={enableSubmit}
+				onClick={this._handleBackButtonClicked}
 			/>
 		);
 	}
@@ -165,8 +324,21 @@ export default class PasswordChangeBox extends React.Component {
 				? !!backActionButtonProps.show
 				: true,
 			label: backActionButtonProps.label 
-				|| PasswordChangeBoxDefaults.backActionButton.label
+				|| PasswordChangeBoxDefaults.backActionButton.label,
+			position: backActionButtonProps.position
+				|| PasswordChangeBoxDefaults.backActionButton.position
 		};
+	}
+
+	_computeBackActionButtonCssClassName(backActionButtonProps) {
+		let positionClassName = 'lvd-passwordchange-box-back-btn-left';
+		const baseClassName = 'lvd-passwordchange-box-btn lvd-passwordchange-box-back-btn';
+		
+		if (backActionButtonProps.position == BackButtonPositions.right) { 
+			positionClassName = 'lvd-passwordchange-box-back-btn-right';
+		}
+
+		return `${baseClassName} ${positionClassName}`;
 	}
 }
 
@@ -179,9 +351,14 @@ PasswordChangeBox.propTypes = {
 	underlined: PropTypes.bool,
 
 	titleProps: PropTypes.object,
+	existingPasswordProps: PropTypes.object,
+	newPasswordProps: PropTypes.object,
+	confirmNewPasswordProps: PropTypes.object,
 	passwordChangeButtonProps: PropTypes.object,
 	backActionButtonProps: PropTypes.object,
 
+	onPasswordChangedRequested: PropTypes.func,
+	onBackRequested: PropTypes.func,
 	onPasswordChangeValuesChanged: PropTypes.func,
 	onPasswordChangeBoxInitialized: PropTypes.func,
 	onPasswordChangeBoxDisposed: PropTypes.func

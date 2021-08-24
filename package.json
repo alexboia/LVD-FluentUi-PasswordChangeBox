@@ -2,13 +2,13 @@
 	"name": "lvd-fluentui-passwordchangebox",
 	"version": "0.0.1",
 	"description": "A ReactJS password change box component built using the FluentUI library",
-	"homepage": "",
+	"homepage": "https://github.com/alexboia/LVD-FluentUi-PasswordChangeBox",
 	"repository": {
 		"type": "git",
-		"url": ""
+		"url": "https://github.com/alexboia/LVD-FluentUi-PasswordChangeBox.git"
 	},
 	"bugs": {
-		"url": ""
+		"url": "https://github.com/alexboia/LVD-FluentUi-PasswordChangeBox/issues"
 	},
 	"main": "dist/index.umd2.js",
 	"scripts": {
@@ -19,6 +19,14 @@
 	"author": "Alexandru Boia<alexandru.boia@gmail.com>",
 	"license": "BSD-3-Clause",
 	"browser": "dist/index.umd2.js",
+	"keywords": [
+		"react",
+		"reactjs",
+		"react-components",
+		"ui-components",
+		"fluentui",
+		"password-box"
+	],
 	"files": [
 		"dist",
 		"demo",

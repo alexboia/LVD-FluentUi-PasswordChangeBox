@@ -19365,6 +19365,11 @@ template {
 	margin-right: 10px;
 }
 
+.lvd-passwordchange-box .lvd-passwordchange-box-btn.lvd-passwordchange-box-back-btn.lvd-passwordchange-box-back-btn-right {
+	float: right;
+	margin-right: 0;
+}
+
 .lvd-passwordchange-box-message {
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -19372,6 +19377,12 @@ template {
 
 .lvd-passwordchange-box-field .ms-TextField--underlined .ms-Label {
 	padding-left: 0px;
+}
+
+.lvd-passwordchange-box-clear {
+	clear: both;
+	margin: 0;
+	padding: 0;
 }
 
 html {
