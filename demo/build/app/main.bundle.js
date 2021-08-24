@@ -30197,7 +30197,9 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       this._setBusy(true);
 
-      var passwordChangeService = new _FakePasswordChangeService_js__WEBPACK_IMPORTED_MODULE_10__.default();
+      var passwordChangeService = new _FakePasswordChangeService_js__WEBPACK_IMPORTED_MODULE_10__.default({
+        requireExistingPassword: false
+      });
       passwordChangeService.changePassword(values, function (resultMessage) {
         _this2._setBusy(false);
 
@@ -30244,7 +30246,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "lvd-passwordchangebox-demo-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7__.createElement(_components_PasswordChangeBox_jsx__WEBPACK_IMPORTED_MODULE_8__.default, {
         disabled: this.state.working,
-        requireExistingPassword: true,
+        requireExistingPassword: false,
         messageProps: this.state.passwordChangeMessage,
         newPasswordProps: {
           passwordStrengthProps: {
@@ -67651,7 +67653,7 @@ var FakePasswordChangeService = /*#__PURE__*/function () {
   }, {
     key: "_isExistingPasswordCorrect",
     value: function _isExistingPasswordCorrect(currentPassword) {
-      return !!this._config.requireExistingPassword && currentPassword == this._config.correctExistingPassword;
+      return !this._config.requireExistingPassword || currentPassword == this._config.correctExistingPassword;
     }
   }, {
     key: "_newPasswordMatchesConfirmation",

@@ -44,8 +44,8 @@ export default class FakePasswordChangeService {
 	}
 
 	_isExistingPasswordCorrect(currentPassword) {
-		return !!this._config.requireExistingPassword 
-			&& currentPassword == this._config.correctExistingPassword;
+		return !this._config.requireExistingPassword 
+			|| currentPassword == this._config.correctExistingPassword;
 	}
 
 	_newPasswordMatchesConfirmation(newPassword, confirmNewPassword) {
