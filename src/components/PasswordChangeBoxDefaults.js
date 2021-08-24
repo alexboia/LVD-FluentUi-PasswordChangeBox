@@ -23,7 +23,8 @@ const PasswordChangeBoxDefaults = {
 		label: 'Password confirmation:',
 		placeholder: 'Please confirm new password',
 		messages: {
-			empty: 'You must confirm your new password'
+			empty: 'You must confirm your new password',
+			mismatch: 'The new password confirmation does not match the new password'
 		}
 	},
 

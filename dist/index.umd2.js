@@ -34,8 +34,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(14);
 /* harmony import */ var lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(15);
-/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(16);
+/* harmony import */ var _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(15);
+/* harmony import */ var _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(18);
+/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(19);
 
 
 
@@ -46,6 +47,8 @@ __webpack_require__.r(__webpack_exports__);
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__.default)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__.default)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__.default)(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+
 
 
 
@@ -68,13 +71,17 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       existingPassword: null,
       newPassword: null,
-      confirmNewPassword: null
+      confirmNewPassword: null,
+      hasInteracted: false
     };
     _this._handleExistingPasswordChanged = _this._handleExistingPasswordChanged.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
     _this._handleNewPasswordChanged = _this._handleNewPasswordChanged.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
     _this._handleConfirmNewPasswordChanged = _this._handleConfirmNewPasswordChanged.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
     _this._handleChangePasswordButtonClicked = _this._handleChangePasswordButtonClicked.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
     _this._handleBackButtonClicked = _this._handleBackButtonClicked.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
+    _this._getExistingPasswordFieldErrorMessage = _this._getExistingPasswordFieldErrorMessage.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
+    _this._getNewPasswordErrorMessage = _this._getNewPasswordErrorMessage.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
+    _this._getConfirmNewPasswordErrorMessage = _this._getConfirmNewPasswordErrorMessage.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
     return _this;
   }
 
@@ -85,7 +92,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
 
       var existingValuesRequired = this._isExistingPasswordRequired();
 
-      return !existingValuesRequired && !!formValues.existingPassword && !!formValues.newPassword && !!formValues.confirmNewPassword && formValues.newPassword == formValues.confirmNewPassword;
+      return (!existingValuesRequired || !!formValues.existingPassword) && !!formValues.newPassword && !!formValues.confirmNewPassword && formValues.newPassword == formValues.confirmNewPassword;
     }
   }, {
     key: "_getFormValues",
@@ -106,7 +113,8 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       var oldValues = this._getFormValues();
 
       this.setState({
-        existingPassword: event.target.value
+        existingPassword: event.target.value,
+        hasInteracted: true
       }, function () {
         return _this2._raiseValuesChanged(oldValues);
       });
@@ -122,15 +130,15 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "_handleNewPasswordChanged",
-    value: function _handleNewPasswordChanged(event) {
+    value: function _handleNewPasswordChanged(oldValue, newValue) {
       var _this3 = this;
-
-      event.preventDefault();
 
       var oldValues = this._getFormValues();
 
       this.setState({
-        newPassword: event.target.value
+        newPassword: newValue,
+        confirmNewPassword: '',
+        hasInteracted: true
       }, function () {
         return _this3._raiseValuesChanged(oldValues);
       });
@@ -145,7 +153,8 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       var oldValues = this._getFormValues();
 
       this.setState({
-        confirmNewPassword: event.target.value
+        confirmNewPassword: event.target.value,
+        hasInteracted: true
       }, function () {
         return _this4._raiseValuesChanged(oldValues);
       });
@@ -176,18 +185,18 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
-        className: this._computeContainerCssClass()
+        className: this._computeContainerCssClassName()
       }, this._renderTitle(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
         className: "lvd-passwordchange-box-fields-container"
-      }, this._renderExistingPasswordInputField(), this._renderMainPasswordInputField(), this._renderPasswordConfirmationField()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
+      }, this._renderMessage(), this._renderExistingPasswordInputField(), this._renderMainPasswordInputField(), this._renderPasswordConfirmationField()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
         className: "lvd-passwordchange-box-button-container"
       }, this._renderPasswordChangeActionButton(), this._renderBackActionButtonButton(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
         className: "lvd-passwordchange-box-clear"
       })));
     }
   }, {
-    key: "_computeContainerCssClass",
-    value: function _computeContainerCssClass() {
+    key: "_computeContainerCssClassName",
+    value: function _computeContainerCssClassName() {
       var className = 'lvd-passwordchange-box';
 
       if (this._useFramedLayout()) {
@@ -216,7 +225,28 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       var titleProps = this.props.titleProps || {};
       return {
         show: titleProps.hasOwnProperty('show') ? !!titleProps.show : true,
-        text: titleProps.text || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.title
+        text: titleProps.text || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.title
+      };
+    }
+  }, {
+    key: "_renderMessage",
+    value: function _renderMessage() {
+      var messageProps = this._getMessageProps();
+
+      return !!messageProps.message && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__.MessageBar, {
+        className: "lvd-passwordchange-box-message",
+        messageBarType: messageProps.type,
+        isMultiline: true
+      }, messageProps.message);
+    }
+  }, {
+    key: "_getMessageProps",
+    value: function _getMessageProps() {
+      var messageProps = this.props.messageProps || {};
+      var messageType = (0,_PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_10__.passwordChangeBoxMessageTypeToOfficeUiMessageType)(messageProps.type || null);
+      return {
+        message: messageProps.message || null,
+        type: messageType
       };
     }
   }, {
@@ -227,6 +257,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
 
         var existingPasswordElement = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__.TextField, {
           type: "password",
+          value: this.state.existingPassword,
           label: existingPasswordProps.label,
           placeholder: existingPasswordProps.placeholder,
           canRevealPassword: this._canReveal(),
@@ -234,6 +265,8 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
           readOnly: this._isReadOnly(),
           underlined: this._isUnderlined(),
           onChange: this._handleExistingPasswordChanged,
+          onGetErrorMessage: this._getExistingPasswordFieldErrorMessage,
+          autoComplete: "off",
           required: true
         });
         return this._renderField(existingPasswordElement);
@@ -246,10 +279,37 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     value: function _getExistingPasswordProps() {
       var existingPasswordProps = this.props.existingPasswordProps || {};
       return {
-        label: existingPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.existingPassword.label,
-        placeholder: existingPasswordProps.hasOwnProperty('placeholder') ? existingPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.existingPassword.placeholder,
-        emptyErrorMessage: existingPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.existingPassword.messages.empty
+        label: existingPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.existingPassword.label,
+        placeholder: existingPasswordProps.hasOwnProperty('placeholder') ? existingPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.existingPassword.placeholder,
+        emptyErrorMessage: existingPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.existingPassword.messages.empty
       };
+    }
+  }, {
+    key: "_getExistingPasswordFieldErrorMessage",
+    value: function _getExistingPasswordFieldErrorMessage(value) {
+      var existingPasswordProps = this._getExistingPasswordProps();
+
+      return this._displayExistingPasswordEmptyErrorMessage(value) ? existingPasswordProps.emptyErrorMessage : '';
+    }
+  }, {
+    key: "_displayExistingPasswordEmptyErrorMessage",
+    value: function _displayExistingPasswordEmptyErrorMessage(value) {
+      return !this._isExistingPasswordFilledIn(value) && this._displayFieldErrorMessages();
+    }
+  }, {
+    key: "_isExistingPasswordFilledIn",
+    value: function _isExistingPasswordFilledIn(existingPassword) {
+      return this._isValueFilledIn(existingPassword);
+    }
+  }, {
+    key: "_isValueFilledIn",
+    value: function _isValueFilledIn(value) {
+      return value != null && value.length > 0;
+    }
+  }, {
+    key: "_displayFieldErrorMessages",
+    value: function _displayFieldErrorMessages() {
+      return !!this.state.hasInteracted;
     }
   }, {
     key: "_canReveal",
@@ -290,12 +350,14 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
 
       var newPasswordElement = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9__.PasswordBox, {
         label: newPasswordProps.label,
+        value: this.state.newPassword,
         placeholder: newPasswordProps.placeholder,
         canReveal: this._canReveal(),
         disabled: this._isDisabled(),
         readOnly: this._isReadOnly(),
         underlined: this._isUnderlined(),
-        onChange: this._handleNewPasswordChanged,
+        onPasswordChanged: this._handleNewPasswordChanged,
+        onGetErrorMessage: this._getNewPasswordErrorMessage,
         required: true
       });
       return this._renderField(newPasswordElement);
@@ -305,10 +367,27 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     value: function _getNewPasswordProps() {
       var newPasswordProps = this.props.newPasswordProps || {};
       return {
-        label: newPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.newPassword.label,
-        placeholder: newPasswordProps.hasOwnProperty('placeholder') ? newPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.newPassword.placeholder,
-        emptyErrorMessage: newPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.newPassword.messages.empty
+        label: newPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.label,
+        placeholder: newPasswordProps.hasOwnProperty('placeholder') ? newPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.placeholder,
+        emptyErrorMessage: newPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.messages.empty
       };
+    }
+  }, {
+    key: "_getNewPasswordErrorMessage",
+    value: function _getNewPasswordErrorMessage(value) {
+      var newPasswordProps = this._getNewPasswordProps();
+
+      return this._displayNewPasswordEmptyErrorMessage(value) ? newPasswordProps.emptyErrorMessage : '';
+    }
+  }, {
+    key: "_displayNewPasswordEmptyErrorMessage",
+    value: function _displayNewPasswordEmptyErrorMessage(value) {
+      return !this._isNewPasswordFilledIn(value) && this._displayFieldErrorMessages();
+    }
+  }, {
+    key: "_isNewPasswordFilledIn",
+    value: function _isNewPasswordFilledIn(newPassword) {
+      return this._isValueFilledIn(newPassword);
     }
   }, {
     key: "_renderPasswordConfirmationField",
@@ -317,6 +396,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
 
       var passwordConfirmationElement = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__.TextField, {
         type: "password",
+        value: this.state.confirmNewPassword,
         label: confirmNewPasswordProps.label,
         placeholder: confirmNewPasswordProps.placeholder,
         canRevealPassword: this._canReveal(),
@@ -324,7 +404,9 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
         readOnly: this._isReadOnly(),
         underlined: this._isUnderlined(),
         onChange: this._handleConfirmNewPasswordChanged,
-        required: true
+        onGetErrorMessage: this._getConfirmNewPasswordErrorMessage,
+        required: true,
+        autoComplete: "off"
       });
       return this._renderField(passwordConfirmationElement);
     }
@@ -333,15 +415,43 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     value: function _getConfirmNewPasswordProps() {
       var confirmNewPasswordProps = this.props.confirmNewPasswordProps || {};
       return {
-        label: confirmNewPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.confirmNewPassword.label,
-        placeholder: confirmNewPasswordProps.hasOwnProperty('placeholder') ? confirmNewPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.confirmNewPassword.placeholder,
-        emptyErrorMessage: confirmNewPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.confirmNewPassword.messages.empty
+        label: confirmNewPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.label,
+        placeholder: confirmNewPasswordProps.hasOwnProperty('placeholder') ? confirmNewPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.placeholder,
+        emptyErrorMessage: confirmNewPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.messages.empty,
+        mismatchErrorMessage: confirmNewPasswordProps.mismatchErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.messages.mismatch
       };
+    }
+  }, {
+    key: "_getConfirmNewPasswordErrorMessage",
+    value: function _getConfirmNewPasswordErrorMessage(value) {
+      var errorMessage = '';
+
+      var confirmNewPasswordProps = this._getConfirmNewPasswordProps();
+
+      if (this._displayFieldErrorMessages()) {
+        if (this._isConfirmNewPasswordFilledIn(value)) {
+          errorMessage = !this._confirmNewPasswordMatchesNewPassword(value) ? confirmNewPasswordProps.mismatchErrorMessage : '';
+        } else {
+          errorMessage = confirmNewPasswordProps.emptyErrorMessage;
+        }
+      }
+
+      return errorMessage;
+    }
+  }, {
+    key: "_isConfirmNewPasswordFilledIn",
+    value: function _isConfirmNewPasswordFilledIn(confirmNewPassword) {
+      return this._isValueFilledIn(confirmNewPassword);
+    }
+  }, {
+    key: "_confirmNewPasswordMatchesNewPassword",
+    value: function _confirmNewPasswordMatchesNewPassword(confirmNewPassword) {
+      return confirmNewPassword == this.state.newPassword;
     }
   }, {
     key: "_renderPasswordChangeActionButton",
     value: function _renderPasswordChangeActionButton() {
-      var enableSubmit = true;
+      var enableSubmit = this._isFormValid() && !this._isDisabled();
 
       var passwordChangeButtonProps = this._getPasswordChangeActionButtonProps();
 
@@ -357,21 +467,19 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     value: function _getPasswordChangeActionButtonProps() {
       var passwordChangeButtonProps = this.props.passwordChangeButtonProps || {};
       return {
-        label: passwordChangeButtonProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.passwordChangeButton.label
+        label: passwordChangeButtonProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.passwordChangeButton.label
       };
     }
   }, {
     key: "_renderBackActionButtonButton",
     value: function _renderBackActionButtonButton() {
-      var enableSubmit = this._isFormValid() && !this._isDisabled();
-
       var backActionButtonProps = this._getBackActionButtonProps();
 
       return backActionButtonProps.show && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__.DefaultButton, {
         primary: false,
         className: this._computeBackActionButtonCssClassName(backActionButtonProps),
         text: backActionButtonProps.label,
-        disabled: enableSubmit,
+        disabled: this._isDisabled(),
         onClick: this._handleBackButtonClicked
       });
     }
@@ -381,8 +489,8 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       var backActionButtonProps = this.props.backActionButtonProps || {};
       return {
         show: backActionButtonProps.hasOwnProperty('show') ? !!backActionButtonProps.show : true,
-        label: backActionButtonProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.backActionButton.label,
-        position: backActionButtonProps.position || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_10__.default.backActionButton.position
+        label: backActionButtonProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.backActionButton.label,
+        position: backActionButtonProps.position || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.backActionButton.position
       };
     }
   }, {
@@ -391,7 +499,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       var positionClassName = 'lvd-passwordchange-box-back-btn-left';
       var baseClassName = 'lvd-passwordchange-box-btn lvd-passwordchange-box-back-btn';
 
-      if (backActionButtonProps.position == _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_11__.default.right) {
+      if (backActionButtonProps.position == _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_12__.default.right) {
         positionClassName = 'lvd-passwordchange-box-back-btn-right';
       }
 
@@ -2231,9 +2339,113 @@ __nested_webpack_require_61959__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "passwordChangeBoxMessageTypeToOfficeUiMessageType": () => (/* binding */ passwordChangeBoxMessageTypeToOfficeUiMessageType),
+/* harmony export */   "successMessage": () => (/* binding */ successMessage),
+/* harmony export */   "errorMessage": () => (/* binding */ errorMessage),
+/* harmony export */   "warningMessage": () => (/* binding */ warningMessage),
+/* harmony export */   "infoMessage": () => (/* binding */ infoMessage)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
+
+
+var _messageTypeMapping;
+
+
+
+var messageTypeMapping = (_messageTypeMapping = {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.info, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.info), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.error, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.error), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.warning, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.warning), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.severeWarning, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.severeWarning), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.success, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.success), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_messageTypeMapping, _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.blocked, _fluentui_react__WEBPACK_IMPORTED_MODULE_1__.MessageBarType.blocked), _messageTypeMapping);
+function passwordChangeBoxMessageTypeToOfficeUiMessageType(passwordChangeBoxMessageType) {
+  var officeUiMessageType = null;
+
+  if (!!passwordChangeBoxMessageType && messageTypeMapping.hasOwnProperty(passwordChangeBoxMessageType)) {
+    officeUiMessageType = messageTypeMapping[passwordChangeBoxMessageType];
+  }
+
+  return officeUiMessageType;
+}
+function successMessage(message) {
+  return {
+    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.success,
+    message: message
+  };
+}
+function errorMessage(message) {
+  return {
+    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.error,
+    message: message
+  };
+}
+function warningMessage(message) {
+  return {
+    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.warning,
+    message: message
+  };
+}
+function infoMessage(message) {
+  return {
+    type: _PasswordChangeBoxMessageType_js__WEBPACK_IMPORTED_MODULE_2__.default.info,
+    message: message
+  };
+}
+
+/***/ }),
+/* 16 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _defineProperty)
+/* harmony export */ });
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+/***/ }),
+/* 17 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_0__);
+
+var PasswordChangeBoxMessageType = {
+  info: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.info,
+  error: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.error,
+  blocked: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.blocked,
+  severeWarning: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.severeWarning,
+  success: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.success,
+  warning: _fluentui_react__WEBPACK_IMPORTED_MODULE_0__.MessageBarType.warning
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PasswordChangeBoxMessageType);
+
+/***/ }),
+/* 18 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 
 var PasswordChangeBoxDefaults = {
   title: 'Change password',
@@ -2255,7 +2467,8 @@ var PasswordChangeBoxDefaults = {
     label: 'Password confirmation:',
     placeholder: 'Please confirm new password',
     messages: {
-      empty: 'You must confirm your new password'
+      empty: 'You must confirm your new password',
+      mismatch: 'The new password confirmation does not match the new password'
     }
   },
   passwordChangeButton: {
@@ -2270,7 +2483,7 @@ var PasswordChangeBoxDefaults = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PasswordChangeBoxDefaults);
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";

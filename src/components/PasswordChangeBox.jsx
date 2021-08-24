@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { MessageBar } from '@fluentui/react';
 import { TextField, PrimaryButton, DefaultButton } from '@fluentui/react';
 import { PasswordBox } from 'lvd-fluentui-passwordbox';
 
+import { passwordChangeBoxMessageTypeToOfficeUiMessageType } from './PasswordChangeBoxUtility.js'
 import PasswordChangeBoxDefaults from './PasswordChangeBoxDefaults.js';
 import BackButtonPositions from './BackButtonPositions.js';
 
@@ -14,7 +16,8 @@ export default class PasswordChangeBox extends React.Component {
 		this.state = {
 			existingPassword: null,
 			newPassword: null,
-			confirmNewPassword: null
+			confirmNewPassword: null,
+			hasInteracted: false
 		};
 
 		this._handleExistingPasswordChanged =
@@ -27,13 +30,20 @@ export default class PasswordChangeBox extends React.Component {
 			this._handleChangePasswordButtonClicked.bind(this);
 		this._handleBackButtonClicked = 
 			this._handleBackButtonClicked.bind(this);
+
+		this._getExistingPasswordFieldErrorMessage =
+			this._getExistingPasswordFieldErrorMessage.bind(this);
+		this._getNewPasswordErrorMessage = 
+			this._getNewPasswordErrorMessage.bind(this);
+		this._getConfirmNewPasswordErrorMessage = 
+			this._getConfirmNewPasswordErrorMessage.bind(this);
 	}
 
 	_isFormValid() {
 		const formValues = this._getFormValues();
 		const existingValuesRequired = this._isExistingPasswordRequired();
 
-		return (!existingValuesRequired && !!formValues.existingPassword)
+		return (!existingValuesRequired || !!formValues.existingPassword)
 			&& !!formValues.newPassword 
 			&& !!formValues.confirmNewPassword
 			&& (formValues.newPassword == formValues.confirmNewPassword);
@@ -52,7 +62,8 @@ export default class PasswordChangeBox extends React.Component {
 		const oldValues = this._getFormValues();
 
 		this.setState({
-			existingPassword: event.target.value
+			existingPassword: event.target.value,
+			hasInteracted: true
 		}, () => this._raiseValuesChanged(oldValues));
 	}
 
@@ -63,12 +74,12 @@ export default class PasswordChangeBox extends React.Component {
 		}
 	}
 
-	_handleNewPasswordChanged(event) {
-		event.preventDefault();
+	_handleNewPasswordChanged(oldValue, newValue) {
 		const oldValues = this._getFormValues();
-
 		this.setState({
-			newPassword: event.target.value
+			newPassword: newValue,
+			confirmNewPassword: '',
+			hasInteracted: true
 		}, () => this._raiseValuesChanged(oldValues));
 	}
 
@@ -77,7 +88,8 @@ export default class PasswordChangeBox extends React.Component {
 		const oldValues = this._getFormValues();
 
 		this.setState({
-			confirmNewPassword: event.target.value
+			confirmNewPassword: event.target.value,
+			hasInteracted: true
 		}, () => this._raiseValuesChanged(oldValues));
 	}
 
@@ -101,10 +113,11 @@ export default class PasswordChangeBox extends React.Component {
 	
 	render() {
 		return (
-			<div className={this._computeContainerCssClass()}>
+			<div className={this._computeContainerCssClassName()}>
 				{this._renderTitle()}
 
 				<div className="lvd-passwordchange-box-fields-container">
+					{this._renderMessage()}
 					{this._renderExistingPasswordInputField()}
 					{this._renderMainPasswordInputField()}
 					{this._renderPasswordConfirmationField()}
@@ -118,13 +131,11 @@ export default class PasswordChangeBox extends React.Component {
 		);
 	}
 
-	_computeContainerCssClass() {
+	_computeContainerCssClassName() {
 		let className = 'lvd-passwordchange-box';
-
 		if (this._useFramedLayout()) {
 			className = `${className} lvd-passwordchange-box-framed`;
 		}
-
 		return className;
 	}
 
@@ -154,12 +165,35 @@ export default class PasswordChangeBox extends React.Component {
 		};
 	}
 
+	_renderMessage() {
+		const messageProps = this._getMessageProps();
+		return !!messageProps.message && (
+			<MessageBar
+				className="lvd-passwordchange-box-message"
+				messageBarType={messageProps.type}
+				isMultiline={true}>
+				{messageProps.message}
+			</MessageBar>
+		);
+	}
+
+	_getMessageProps() {
+		const messageProps = this.props.messageProps || {};
+		const messageType = passwordChangeBoxMessageTypeToOfficeUiMessageType(messageProps.type || null);
+
+		return {
+			message: messageProps.message || null,
+			type: messageType 
+		};
+	}
+
 	_renderExistingPasswordInputField() {
 		if (this._isExistingPasswordRequired()) {
 			const existingPasswordProps = this._getExistingPasswordProps();
 			const existingPasswordElement = (
 				<TextField 
 					type="password"
+					value={this.state.existingPassword}
 					label={existingPasswordProps.label}
 					placeholder={existingPasswordProps.placeholder}
 					canRevealPassword={this._canReveal()}
@@ -167,6 +201,8 @@ export default class PasswordChangeBox extends React.Component {
 					readOnly={this._isReadOnly()}
 					underlined={this._isUnderlined()}
 					onChange={this._handleExistingPasswordChanged}
+					onGetErrorMessage={this._getExistingPasswordFieldErrorMessage}
+					autoComplete="off"
 					required={true}
 				/>
 			);
@@ -188,6 +224,30 @@ export default class PasswordChangeBox extends React.Component {
 			emptyErrorMessage: existingPasswordProps.emptyErrorMessage
 				|| PasswordChangeBoxDefaults.existingPassword.messages.empty
 		};
+	}
+
+	_getExistingPasswordFieldErrorMessage(value) {
+		const existingPasswordProps = this._getExistingPasswordProps();
+		return this._displayExistingPasswordEmptyErrorMessage(value)
+			? existingPasswordProps.emptyErrorMessage
+			: '';
+	}
+
+	_displayExistingPasswordEmptyErrorMessage(value) {
+		return !this._isExistingPasswordFilledIn(value)
+			&& this._displayFieldErrorMessages();
+	}
+
+	_isExistingPasswordFilledIn(existingPassword) {
+		return this._isValueFilledIn(existingPassword);
+	}
+
+	_isValueFilledIn(value) {
+		return (value != null && value.length > 0);
+	}
+
+	_displayFieldErrorMessages() {
+		return !!this.state.hasInteracted;
 	}
 
 	_canReveal() {
@@ -223,12 +283,14 @@ export default class PasswordChangeBox extends React.Component {
 		const newPasswordElement = (
 			<PasswordBox 
 				label={newPasswordProps.label}
+				value={this.state.newPassword}
 				placeholder={newPasswordProps.placeholder}
 				canReveal={this._canReveal()}
 				disabled={this._isDisabled()}
 				readOnly={this._isReadOnly()}
 				underlined={this._isUnderlined()}
-				onChange={this._handleNewPasswordChanged}
+				onPasswordChanged={this._handleNewPasswordChanged}
+				onGetErrorMessage={this._getNewPasswordErrorMessage}
 				required={true}
 			/>
 		);
@@ -249,11 +311,28 @@ export default class PasswordChangeBox extends React.Component {
 		};
 	}
 
+	_getNewPasswordErrorMessage(value) {
+		const newPasswordProps = this._getNewPasswordProps();
+		return this._displayNewPasswordEmptyErrorMessage(value)
+			? newPasswordProps.emptyErrorMessage
+			: '';
+	}
+
+	_displayNewPasswordEmptyErrorMessage(value) {
+		return !this._isNewPasswordFilledIn(value)
+			&& this._displayFieldErrorMessages();
+	}
+
+	_isNewPasswordFilledIn(newPassword) {
+		return this._isValueFilledIn(newPassword);
+	}
+
 	_renderPasswordConfirmationField() {
 		const confirmNewPasswordProps = this._getConfirmNewPasswordProps();
 		const passwordConfirmationElement = (
 			<TextField 
 				type="password"
+				value={this.state.confirmNewPassword}
 				label={confirmNewPasswordProps.label}
 				placeholder={confirmNewPasswordProps.placeholder}
 				canRevealPassword={this._canReveal()}
@@ -261,7 +340,9 @@ export default class PasswordChangeBox extends React.Component {
 				readOnly={this._isReadOnly()}
 				underlined={this._isUnderlined()}
 				onChange={this._handleConfirmNewPasswordChanged}
+				onGetErrorMessage={this._getConfirmNewPasswordErrorMessage}
 				required={true}
+				autoComplete="off"
 			/>
 		);
 
@@ -277,12 +358,39 @@ export default class PasswordChangeBox extends React.Component {
 				? confirmNewPasswordProps.placeholder || null
 				: PasswordChangeBoxDefaults.confirmNewPassword.placeholder,
 			emptyErrorMessage: confirmNewPasswordProps.emptyErrorMessage
-				|| PasswordChangeBoxDefaults.confirmNewPassword.messages.empty
+				|| PasswordChangeBoxDefaults.confirmNewPassword.messages.empty,
+			mismatchErrorMessage: confirmNewPasswordProps.mismatchErrorMessage
+				|| PasswordChangeBoxDefaults.confirmNewPassword.messages.mismatch
 		};
 	}
 
+	_getConfirmNewPasswordErrorMessage(value) {
+		let errorMessage = '';
+		const confirmNewPasswordProps = this._getConfirmNewPasswordProps();
+		
+		if (this._displayFieldErrorMessages()) {
+			if (this._isConfirmNewPasswordFilledIn(value)) {
+				errorMessage = !this._confirmNewPasswordMatchesNewPassword(value)
+					? confirmNewPasswordProps.mismatchErrorMessage
+					: '' 
+			} else {
+				errorMessage = confirmNewPasswordProps.emptyErrorMessage;
+			}
+		}
+
+		return errorMessage;
+	}
+
+	_isConfirmNewPasswordFilledIn(confirmNewPassword) {
+		return this._isValueFilledIn(confirmNewPassword);
+	}
+
+	_confirmNewPasswordMatchesNewPassword(confirmNewPassword) {
+		return confirmNewPassword == this.state.newPassword;
+	}
+
 	_renderPasswordChangeActionButton() {
-		const enableSubmit = true;
+		const enableSubmit = this._isFormValid() && !this._isDisabled();
 		const passwordChangeButtonProps = this._getPasswordChangeActionButtonProps();
 
 		return (
@@ -304,14 +412,13 @@ export default class PasswordChangeBox extends React.Component {
 	}
 
 	_renderBackActionButtonButton() {
-		const enableSubmit = this._isFormValid() && !this._isDisabled();
 		const backActionButtonProps = this._getBackActionButtonProps();
 
 		return backActionButtonProps.show && (
 			<DefaultButton primary={false}
 				className={this._computeBackActionButtonCssClassName(backActionButtonProps)}
 				text={backActionButtonProps.label} 
-				disabled={enableSubmit}
+				disabled={this._isDisabled()}
 				onClick={this._handleBackButtonClicked}
 			/>
 		);
