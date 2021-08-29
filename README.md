@@ -117,6 +117,7 @@ npm run build
 | Component title | `titleProps` | `Title Customization Object` | See below. |
 | Customize the existing password field | `existingPasswordProps` | `Existing Password Customization Object` | Only used when `requireExistingPassword={true}`. See below. |
 | Customize the new password field | `newPasswordProps` | `New Password Customization Object` | See below. |
+| Customize the password confirmation field | `confirmNewPasswordProps` | `Confirm New Password Customization Object` | See below. |
 
 ### Title Customization Object
 
@@ -189,6 +190,28 @@ A plain javascript object with the following properties:
 		passwordRulesProps: {
 			rules: [/* some password rules */]
 		}
+	}}
+	...
+/>
+```
+
+### Confirm New Password Customization Object
+
+A plain javascript object with the following properties:
+
+| Name | Type | Notes |
+| --- | --- | --- |
+| `label` | `string` | Field label. Defaults to `Password confirmation:`. |
+| `placeholder` | `string` | Field placeholder. Defaults to `Please confirm new password`. |
+| `description` | `string` | Field descriptive text, displayed below the field. Defaults to empty string. |
+| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must confirm your new password` |
+| `mismatchErrorMessage` | `string` | Error message displayed when the value of this field does not match the value of the new password field. That is, when the new password and its confirmation are not the same. Defaults to `The new password confirmation does not match the new password` |
+
+```javascript
+<PasswordChangeBox 
+	...
+	confirmNewPasswordProps={{
+		description: 'Becasue, let us face it, we have all been there: all new password, but immediately forgotten!'
 	}}
 	...
 />
