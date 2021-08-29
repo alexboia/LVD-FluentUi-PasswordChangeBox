@@ -123,7 +123,7 @@ A plain javascript object with the following properties:
 | Name | Type | Notes |
 | --- | --- | --- |
 | `show` | `boolean` | Defaults to `true` if not specified.  |
-| `text` | `string` | Defaults to `Log-in` if not specified or empty.  |
+| `text` | `string` | Defaults to `Change password` if not specified or empty.  |
 
 Example:
 
@@ -132,7 +132,7 @@ Example:
 	...
 	titleProps={{
 		show: true,
-		text: "Log-in to access your account"
+		text: "Time to change your password. Make it count!"
 	}}
 	...
 />
