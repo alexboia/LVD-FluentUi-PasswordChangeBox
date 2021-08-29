@@ -115,6 +115,7 @@ npm run build
 | Allow user to reveal password | `canReveal` | `boolean` | Defaults to `true` |
 | Whether or not to require existing password | `requireExistingPassword` | `boolean` | Defaults to `true` |
 | Component title | `titleProps` | `Title Customization Object` | See below. |
+| Customize the existing password field | `existingPasswordProps` | `Existing Password Customization Object` | Only used when `requireExistingPassword={true}`. See below. |
 
 ### Title Customization Object
 
@@ -138,6 +139,28 @@ Example:
 />
 ```
 
+### Existing Password Customization Object
+
+A plain javascript object with the following properties:
+
+| Name | Type | Notes |
+| --- | --- | --- |
+| `label` | `string` | Field label. Defaults to `Current password:`. |
+| `placeholder` | `string` | Field placeholder. Defaults to `Please enter your current password`. |
+| `description` | `string` | Field descriptive text, displayed below the username field. Defaults to empty string. |
+| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must fill in your current password` |
+
+```javascript
+<PasswordChangeBox 
+	...
+	existingPasswordProps={{
+		label: 'Existing password:',
+		placeholder: 'Please enter your existing password',
+		emptyErrorMessage: 'You must fill in your existing password'
+	}}
+	...
+/>
+```
 
 ## Password Change Values Object
 <a name="pcb-values"></a>
