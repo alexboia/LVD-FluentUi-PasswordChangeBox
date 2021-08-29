@@ -119,7 +119,7 @@ export default class App extends React.Component {
 					disabled={this.state.working}
 					requireExistingPassword={true}
 					fixed={true}
-					framed={false}
+					framed={true}
 					centered={true}
 
 					messageProps={this.state.passwordChangeMessage}
