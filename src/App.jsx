@@ -121,6 +121,7 @@ export default class App extends React.Component {
 					fixed={true}
 					framed={true}
 					centered={true}
+					className="x-sample-passwordchange-box"
 
 					messageProps={this.state.passwordChangeMessage}
 

@@ -111,9 +111,22 @@ export default class PasswordChangeBox extends React.Component {
 		}
 	}
 	
+	componentDidMount() {
+		if (this.props.onPasswordChangeBoxInitialized) {
+			this.props.onPasswordChangeBoxInitialized();
+		}
+	}
+
+	componentWillUnmount() {
+		const values = this._getFormValues();
+		if (this.props.onPasswordChangeBoxDisposed) {
+			this.props.onPasswordChangeBoxDisposed(values);
+		}
+	}
+
 	render() {
 		return (
-			<div className={this._computeContainerCssClassName()}>
+			<div className={this._computeContainerCssClassName()} style={this._getStyle()}>
 				{this._renderTitle()}
 
 				<div className="lvd-passwordchange-box-fields-container">
@@ -132,21 +145,26 @@ export default class PasswordChangeBox extends React.Component {
 	}
 
 	_computeContainerCssClassName() {
-		let className = ['lvd-passwordchange-box'];
+		let containerClassName = ['lvd-passwordchange-box'];
 
 		if (this._useFramedLayout()) {
-			className.push('lvd-passwordchange-box-framed');
+			containerClassName.push('lvd-passwordchange-box-framed');
 		}
 
 		if (this._useFixedLayout()) {
-			className.push('lvd-passwordchange-box-fixed');
+			containerClassName.push('lvd-passwordchange-box-fixed');
 		}
 
 		if (this._useCenteredLayout()) {
-			className.push('lvd-passwordchange-box-centered');
+			containerClassName.push('lvd-passwordchange-box-centered');
 		}
 
-		return className.join(' ');
+		const className = this._getClassName();
+		if (!!className) {
+			containerClassName.push(className);
+		}
+
+		return containerClassName.join(' ');
 	}
 
 	_useFramedLayout() {
@@ -165,6 +183,14 @@ export default class PasswordChangeBox extends React.Component {
 		return this.props.hasOwnProperty('centered')
 			? !!this.props.centered
 			: true;
+	}
+
+	_getClassName() {
+		return this.props.className || null;
+	}
+
+	_getStyle() {
+		return this.props.style || {};
 	}
 
 	_renderTitle() {
@@ -496,6 +522,8 @@ PasswordChangeBox.propTypes = {
 	framed: PropTypes.bool,
 	fixed: PropTypes.bool,
 	centered: PropTypes.bool,
+	className: PropTypes.string,
+	style: PropTypes.object,
 
 	titleProps: PropTypes.object,
 	existingPasswordProps: PropTypes.object,

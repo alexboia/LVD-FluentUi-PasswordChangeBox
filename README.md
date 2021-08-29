@@ -104,6 +104,40 @@ npm run build
 
 | What | Prop Name | Type | Notes |
 | --- | --- | --- | --- |
+| Disable component | `disabled` | `boolean` | Cascades to all fields and buttons. Defaults to `false`. |
+| Configure whether to use framed container layout or not | `framed` | `boolean` | If true, it will display the default shadow-box frame. Defaults to `true`. |
+| Configure whether to use built-in fixed-width container layout or not | `fixed` | `boolean` | If true, it will set the container width to the default width of `500px`. Defaults to `true`. |
+| Configure whether to center the container or not | `centered` | `boolean` | If true, it will attempt to center the container. Defaults to `true`. |
+| Set additional container css class name | `className` | `string` | Defaults to `null`. |
+| Set additional inline css style properties | `style` | `object` | Key-value plain javascript object. Defaults to `{}`. |
+| Make component readonly | `readOnly` | `boolean` | Cascades to all fields. Defaults to `false`. |
+| Display fields in underlined style. | `underlined` | `boolean` | Defaults to `false`. |
+| Allow user to reveal password | `canReveal` | `boolean` | Defaults to `true` |
+| Whether or not to require existing password | `requireExistingPassword` | `boolean` | Defaults to `true` |
+| Component title | `titleProps` | `Title Customization Object` | See below. |
+
+### Title Customization Object
+
+A plain javascript object with the following properties:
+
+| Name | Type | Notes |
+| --- | --- | --- |
+| `show` | `boolean` | Defaults to `true` if not specified.  |
+| `text` | `string` | Defaults to `Log-in` if not specified or empty.  |
+
+Example:
+
+```javascript
+<PasswordChangeBox 
+	...
+	titleProps={{
+		show: true,
+		text: "Log-in to access your account"
+	}}
+	...
+/>
+```
+
 
 ## Password Change Values Object
 <a name="pcb-values"></a>
@@ -115,6 +149,17 @@ The password change values are exported as a plain javascript object with the fo
 | `existingPassword` | `string` | Set to `null` if the existing password is not, by configuration, required |
 | `newPassword` | `string` | - |
 | `confirmNewPassword` | `string` | - |
+
+## Events
+<a name="pcb-events"></a>
+
+| Event | Prop Name | Arguments | Notes |
+| --- | --- | --- | --- |
+| Password change requested | `onPasswordChangedRequested` | (`Password Change Values Object`) | Triggered when the `Change password` button is clicked. |
+| Values changed | `onPasswordChangeValuesChanged` | (`oldValues`:`Password Change Values Object`, `newValues`:`Password Change Values Object`) | Triggered whenever any field changes. |
+| Navigate back | `onBackRequested` | (`Password Change Values Object`) | Triggered when the `Back` button is clicked. |
+| Component initialized | `onPasswordChangeBoxInitialized` | (`none`) | Triggered when the component is mounted by `React`. |
+| Component disposed | `onPasswordChangeBoxDisposed` | (`Password Change Values Object`) | Triggered when the component is un-mounted by `React`. |
 
 ## Changelog
 <a name="pcb-changelog"></a>

@@ -30259,6 +30259,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         fixed: true,
         framed: true,
         centered: true,
+        className: "x-sample-passwordchange-box",
         messageProps: this.state.passwordChangeMessage,
         existingPasswordProps: {
           description: 'Yes, we are afraid this is really necessary.'
@@ -30466,6 +30467,22 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.onPasswordChangeBoxInitialized) {
+        this.props.onPasswordChangeBoxInitialized();
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      var values = this._getFormValues();
+
+      if (this.props.onPasswordChangeBoxDisposed) {
+        this.props.onPasswordChangeBoxDisposed(values);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6__.createElement("div", {
@@ -30481,21 +30498,27 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "_computeContainerCssClassName",
     value: function _computeContainerCssClassName() {
-      var className = ['lvd-passwordchange-box'];
+      var containerClassName = ['lvd-passwordchange-box'];
 
       if (this._useFramedLayout()) {
-        className.push('lvd-passwordchange-box-framed');
+        containerClassName.push('lvd-passwordchange-box-framed');
       }
 
       if (this._useFixedLayout()) {
-        className.push('lvd-passwordchange-box-fixed');
+        containerClassName.push('lvd-passwordchange-box-fixed');
       }
 
       if (this._useCenteredLayout()) {
-        className.push('lvd-passwordchange-box-centered');
+        containerClassName.push('lvd-passwordchange-box-centered');
       }
 
-      return className.join(' ');
+      var className = this._getClassName();
+
+      if (!!className) {
+        containerClassName.push(className);
+      }
+
+      return containerClassName.join(' ');
     }
   }, {
     key: "_useFramedLayout",
@@ -30511,6 +30534,11 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     key: "_useCenteredLayout",
     value: function _useCenteredLayout() {
       return this.props.hasOwnProperty('centered') ? !!this.props.centered : true;
+    }
+  }, {
+    key: "_getClassName",
+    value: function _getClassName() {
+      return this.props.className || null;
     }
   }, {
     key: "_renderTitle",
@@ -30832,6 +30860,7 @@ PasswordChangeBox.propTypes = {
   framed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   fixed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   centered: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
   titleProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   existingPasswordProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   newPasswordProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
