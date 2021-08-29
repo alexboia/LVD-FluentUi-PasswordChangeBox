@@ -116,6 +116,7 @@ npm run build
 | Whether or not to require existing password | `requireExistingPassword` | `boolean` | Defaults to `true` |
 | Component title | `titleProps` | `Title Customization Object` | See below. |
 | Customize the existing password field | `existingPasswordProps` | `Existing Password Customization Object` | Only used when `requireExistingPassword={true}`. See below. |
+| Customize the new password field | `newPasswordProps` | `New Password Customization Object` | See below. |
 
 ### Title Customization Object
 
@@ -147,7 +148,7 @@ A plain javascript object with the following properties:
 | --- | --- | --- |
 | `label` | `string` | Field label. Defaults to `Current password:`. |
 | `placeholder` | `string` | Field placeholder. Defaults to `Please enter your current password`. |
-| `description` | `string` | Field descriptive text, displayed below the username field. Defaults to empty string. |
+| `description` | `string` | Field descriptive text, displayed below the field. Defaults to empty string. |
 | `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must fill in your current password` |
 
 ```javascript
@@ -157,6 +158,37 @@ A plain javascript object with the following properties:
 		label: 'Existing password:',
 		placeholder: 'Please enter your existing password',
 		emptyErrorMessage: 'You must fill in your existing password'
+	}}
+	...
+/>
+```
+
+### New Password Customization Object
+
+A plain javascript object with the following properties:
+
+| Name | Type | Notes |
+| --- | --- | --- |
+| `label` | `string` | Field label. Defaults to `New password:`. |
+| `placeholder` | `string` | Field placeholder. Defaults to `Please enter your new password`. |
+| `description` | `string` | Field descriptive text, displayed below the field. Defaults to empty string. |
+| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must fill in your new password` |
+| `passwordStrengthProps` | `Password Strength Object` | See [here](https://github.com/alexboia/LVD-FluentUi-PasswordBox). |
+| `passwordRulesProps` | `Password Rules Information Object` | See [here](https://github.com/alexboia/LVD-FluentUi-PasswordBox). |
+
+```javascript
+<PasswordChangeBox 
+	...
+	newPasswordProps={{
+		label: 'Brand new password:',
+		placeholder: 'Please enter your brand new password',
+		emptyErrorMessage: 'You must fill in your brand new password',
+		passwordStrengthProps: {
+			/* password strength configuration */
+		},
+		passwordRulesProps: {
+			rules: [/* some password rules */]
+		}
 	}}
 	...
 />
