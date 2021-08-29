@@ -118,6 +118,8 @@ npm run build
 | Customize the existing password field | `existingPasswordProps` | `Existing Password Customization Object` | Only used when `requireExistingPassword={true}`. See below. |
 | Customize the new password field | `newPasswordProps` | `New Password Customization Object` | See below. |
 | Customize the password confirmation field | `confirmNewPasswordProps` | `Confirm New Password Customization Object` | See below. |
+| Customize change password button | `passwordChangeButtonProps` | `Change Password Button Customization Object` | See below. |
+| Customize the back button | `backActionButtonProps` | `Back Button Customization Object` | See below. |
 
 ### Title Customization Object
 
@@ -150,7 +152,9 @@ A plain javascript object with the following properties:
 | `label` | `string` | Field label. Defaults to `Current password:`. |
 | `placeholder` | `string` | Field placeholder. Defaults to `Please enter your current password`. |
 | `description` | `string` | Field descriptive text, displayed below the field. Defaults to empty string. |
-| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must fill in your current password` |
+| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must fill in your current password`. |
+
+Example:
 
 ```javascript
 <PasswordChangeBox 
@@ -173,9 +177,11 @@ A plain javascript object with the following properties:
 | `label` | `string` | Field label. Defaults to `New password:`. |
 | `placeholder` | `string` | Field placeholder. Defaults to `Please enter your new password`. |
 | `description` | `string` | Field descriptive text, displayed below the field. Defaults to empty string. |
-| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must fill in your new password` |
+| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must fill in your new password`. |
 | `passwordStrengthProps` | `Password Strength Object` | See [here](https://github.com/alexboia/LVD-FluentUi-PasswordBox). |
 | `passwordRulesProps` | `Password Rules Information Object` | See [here](https://github.com/alexboia/LVD-FluentUi-PasswordBox). |
+
+Example:
 
 ```javascript
 <PasswordChangeBox 
@@ -204,14 +210,61 @@ A plain javascript object with the following properties:
 | `label` | `string` | Field label. Defaults to `Password confirmation:`. |
 | `placeholder` | `string` | Field placeholder. Defaults to `Please confirm new password`. |
 | `description` | `string` | Field descriptive text, displayed below the field. Defaults to empty string. |
-| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must confirm your new password` |
-| `mismatchErrorMessage` | `string` | Error message displayed when the value of this field does not match the value of the new password field. That is, when the new password and its confirmation are not the same. Defaults to `The new password confirmation does not match the new password` |
+| `emptyErrorMessage` | `string` | Error message displayed when the field is left empty. Defaults to `You must confirm your new password`. |
+| `mismatchErrorMessage` | `string` | Error message displayed when the value of this field does not match the value of the new password field. That is, when the new password and its confirmation are not the same. Defaults to `The new password confirmation does not match the new password`. |
+
+Example:
 
 ```javascript
 <PasswordChangeBox 
 	...
 	confirmNewPasswordProps={{
 		description: 'Becasue, let us face it, we have all been there: all new password, but immediately forgotten!'
+	}}
+	...
+/>
+```
+
+### Change Password Button Customization Object
+
+A plain javascript object with the following properties:
+
+| Name | Type | Notes |
+| --- | --- | --- |
+| `label` | `string` | Defaults to `Change password`. |
+
+Example:
+
+```javascript
+<PasswordChangeBox 
+	...
+	passwordChangeButtonProps={{
+		label: 'Submit new password'
+	}}
+	...
+/>
+```
+
+### Back Button Customization Object
+
+A plain javascript object with the following properties:
+
+| Name | Type | Notes |
+| --- | --- | --- |
+| `label` | `string` | Defaults to `Change password`. |
+| `show` | `boolean` | Whether to show the button or not. Defaults to `true`. |
+| `position` | `BackButtonPositions` | Defaults to `BackButtonPositions.left`. |
+
+Example:
+
+```javascript
+<PasswordChangeBox 
+	...
+	backActionButtonProps={{
+		label: 'Back to log-in',
+		show: true,
+		//align back button to the far-right of the container
+		position: BackButtonPositions.right 
 	}}
 	...
 />

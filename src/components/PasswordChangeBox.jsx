@@ -519,6 +519,8 @@ PasswordChangeBox.propTypes = {
 	canReveal: PropTypes.bool,
 	underlined: PropTypes.bool,
 
+	messageProps: PropTypes.object,
+
 	framed: PropTypes.bool,
 	fixed: PropTypes.bool,
 	centered: PropTypes.bool,
