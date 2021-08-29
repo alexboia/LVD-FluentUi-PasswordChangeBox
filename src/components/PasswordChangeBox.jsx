@@ -119,7 +119,7 @@ export default class PasswordChangeBox extends React.Component {
 				<div className="lvd-passwordchange-box-fields-container">
 					{this._renderMessage()}
 					{this._renderExistingPasswordInputField()}
-					{this._renderMainPasswordInputField()}
+					{this._renderNewPasswordInputField()}
 					{this._renderPasswordConfirmationField()}
 				</div>
 				<div className="lvd-passwordchange-box-button-container">
@@ -132,16 +132,38 @@ export default class PasswordChangeBox extends React.Component {
 	}
 
 	_computeContainerCssClassName() {
-		let className = 'lvd-passwordchange-box';
+		let className = ['lvd-passwordchange-box'];
+
 		if (this._useFramedLayout()) {
-			className = `${className} lvd-passwordchange-box-framed`;
+			className.push('lvd-passwordchange-box-framed');
 		}
-		return className;
+
+		if (this._useFixedLayout()) {
+			className.push('lvd-passwordchange-box-fixed');
+		}
+
+		if (this._useCenteredLayout()) {
+			className.push('lvd-passwordchange-box-centered');
+		}
+
+		return className.join(' ');
 	}
 
 	_useFramedLayout() {
 		return this.props.hasOwnProperty('framed')
 			? !!this.props.framed
+			: true;
+	}
+
+	_useFixedLayout() {
+		return this.props.hasOwnProperty('fixed')
+			? !!this.props.fixed
+			: true;
+	}
+
+	_useCenteredLayout() {
+		return this.props.hasOwnProperty('centered')
+			? !!this.props.centered
 			: true;
 	}
 
@@ -196,6 +218,7 @@ export default class PasswordChangeBox extends React.Component {
 					value={this.state.existingPassword}
 					label={existingPasswordProps.label}
 					placeholder={existingPasswordProps.placeholder}
+					description={existingPasswordProps.description}
 					canRevealPassword={this._canReveal()}
 					disabled={this._isDisabled()}
 					readOnly={this._isReadOnly()}
@@ -221,6 +244,8 @@ export default class PasswordChangeBox extends React.Component {
 			placeholder: existingPasswordProps.hasOwnProperty('placeholder')
 				? existingPasswordProps.placeholder || null
 				: PasswordChangeBoxDefaults.existingPassword.placeholder,
+			description: existingPasswordProps.description
+				|| PasswordChangeBoxDefaults.existingPassword.description,
 			emptyErrorMessage: existingPasswordProps.emptyErrorMessage
 				|| PasswordChangeBoxDefaults.existingPassword.messages.empty
 		};
@@ -278,13 +303,14 @@ export default class PasswordChangeBox extends React.Component {
 		return !!this.props.requireExistingPassword;
 	}
 
-	_renderMainPasswordInputField() {
+	_renderNewPasswordInputField() {
 		const newPasswordProps = this._getNewPasswordProps();
 		const newPasswordElement = (
 			<PasswordBox 
 				label={newPasswordProps.label}
 				value={this.state.newPassword}
 				placeholder={newPasswordProps.placeholder}
+				description={newPasswordProps.description}
 				canReveal={this._canReveal()}
 				disabled={this._isDisabled()}
 				readOnly={this._isReadOnly()}
@@ -308,6 +334,8 @@ export default class PasswordChangeBox extends React.Component {
 			placeholder: newPasswordProps.hasOwnProperty('placeholder')
 				? newPasswordProps.placeholder || null
 				: PasswordChangeBoxDefaults.newPassword.placeholder,
+			description: newPasswordProps.description 
+				|| PasswordChangeBoxDefaults.newPassword.description,
 			emptyErrorMessage: newPasswordProps.emptyErrorMessage
 				|| PasswordChangeBoxDefaults.newPassword.messages.empty,
 			passwordStrengthProps: newPasswordProps.passwordStrengthProps 
@@ -341,6 +369,7 @@ export default class PasswordChangeBox extends React.Component {
 				value={this.state.confirmNewPassword}
 				label={confirmNewPasswordProps.label}
 				placeholder={confirmNewPasswordProps.placeholder}
+				description={confirmNewPasswordProps.description}
 				canRevealPassword={this._canReveal()}
 				disabled={this._isDisabled()}
 				readOnly={this._isReadOnly()}
@@ -363,6 +392,8 @@ export default class PasswordChangeBox extends React.Component {
 			placeholder: confirmNewPasswordProps.hasOwnProperty('placeholder')
 				? confirmNewPasswordProps.placeholder || null
 				: PasswordChangeBoxDefaults.confirmNewPassword.placeholder,
+			description: confirmNewPasswordProps.description
+				|| PasswordChangeBoxDefaults.confirmNewPassword.description,
 			emptyErrorMessage: confirmNewPasswordProps.emptyErrorMessage
 				|| PasswordChangeBoxDefaults.confirmNewPassword.messages.empty,
 			mismatchErrorMessage: confirmNewPasswordProps.mismatchErrorMessage
@@ -456,12 +487,15 @@ export default class PasswordChangeBox extends React.Component {
 }
 
 PasswordChangeBox.propTypes = {
-	framed: PropTypes.bool,
 	disabled: PropTypes.bool,
 	readOnly: PropTypes.bool,
 	requireExistingPassword: PropTypes.bool,
 	canReveal: PropTypes.bool,
 	underlined: PropTypes.bool,
+
+	framed: PropTypes.bool,
+	fixed: PropTypes.bool,
+	centered: PropTypes.bool,
 
 	titleProps: PropTypes.object,
 	existingPasswordProps: PropTypes.object,

@@ -314,7 +314,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
         className: this._computeContainerCssClassName()
       }, this._renderTitle(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
         className: "lvd-passwordchange-box-fields-container"
-      }, this._renderMessage(), this._renderExistingPasswordInputField(), this._renderMainPasswordInputField(), this._renderPasswordConfirmationField()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
+      }, this._renderMessage(), this._renderExistingPasswordInputField(), this._renderNewPasswordInputField(), this._renderPasswordConfirmationField()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
         className: "lvd-passwordchange-box-button-container"
       }, this._renderPasswordChangeActionButton(), this._renderBackActionButtonButton(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
         className: "lvd-passwordchange-box-clear"
@@ -323,18 +323,36 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "_computeContainerCssClassName",
     value: function _computeContainerCssClassName() {
-      var className = 'lvd-passwordchange-box';
+      var className = ['lvd-passwordchange-box'];
 
       if (this._useFramedLayout()) {
-        className = "".concat(className, " lvd-passwordchange-box-framed");
+        className.push('lvd-passwordchange-box-framed');
       }
 
-      return className;
+      if (this._useFixedLayout()) {
+        className.push('lvd-passwordchange-box-fixed');
+      }
+
+      if (this._useCenteredLayout()) {
+        className.push('lvd-passwordchange-box-centered');
+      }
+
+      return className.join(' ');
     }
   }, {
     key: "_useFramedLayout",
     value: function _useFramedLayout() {
       return this.props.hasOwnProperty('framed') ? !!this.props.framed : true;
+    }
+  }, {
+    key: "_useFixedLayout",
+    value: function _useFixedLayout() {
+      return this.props.hasOwnProperty('fixed') ? !!this.props.fixed : true;
+    }
+  }, {
+    key: "_useCenteredLayout",
+    value: function _useCenteredLayout() {
+      return this.props.hasOwnProperty('centered') ? !!this.props.centered : true;
     }
   }, {
     key: "_renderTitle",
@@ -386,6 +404,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
           value: this.state.existingPassword,
           label: existingPasswordProps.label,
           placeholder: existingPasswordProps.placeholder,
+          description: existingPasswordProps.description,
           canRevealPassword: this._canReveal(),
           disabled: this._isDisabled(),
           readOnly: this._isReadOnly(),
@@ -407,6 +426,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       return {
         label: existingPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.existingPassword.label,
         placeholder: existingPasswordProps.hasOwnProperty('placeholder') ? existingPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.existingPassword.placeholder,
+        description: existingPasswordProps.description || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.existingPassword.description,
         emptyErrorMessage: existingPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.existingPassword.messages.empty
       };
     }
@@ -470,14 +490,15 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       return !!this.props.requireExistingPassword;
     }
   }, {
-    key: "_renderMainPasswordInputField",
-    value: function _renderMainPasswordInputField() {
+    key: "_renderNewPasswordInputField",
+    value: function _renderNewPasswordInputField() {
       var newPasswordProps = this._getNewPasswordProps();
 
       var newPasswordElement = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_9__.PasswordBox, {
         label: newPasswordProps.label,
         value: this.state.newPassword,
         placeholder: newPasswordProps.placeholder,
+        description: newPasswordProps.description,
         canReveal: this._canReveal(),
         disabled: this._isDisabled(),
         readOnly: this._isReadOnly(),
@@ -497,6 +518,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       return {
         label: newPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.label,
         placeholder: newPasswordProps.hasOwnProperty('placeholder') ? newPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.placeholder,
+        description: newPasswordProps.description || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.description,
         emptyErrorMessage: newPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.newPassword.messages.empty,
         passwordStrengthProps: newPasswordProps.passwordStrengthProps || null,
         passwordRulesProps: newPasswordProps.passwordRulesProps || null
@@ -529,6 +551,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
         value: this.state.confirmNewPassword,
         label: confirmNewPasswordProps.label,
         placeholder: confirmNewPasswordProps.placeholder,
+        description: confirmNewPasswordProps.description,
         canRevealPassword: this._canReveal(),
         disabled: this._isDisabled(),
         readOnly: this._isReadOnly(),
@@ -547,6 +570,7 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
       return {
         label: confirmNewPasswordProps.label || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.label,
         placeholder: confirmNewPasswordProps.hasOwnProperty('placeholder') ? confirmNewPasswordProps.placeholder || null : _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.placeholder,
+        description: confirmNewPasswordProps.description || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.description,
         emptyErrorMessage: confirmNewPasswordProps.emptyErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.messages.empty,
         mismatchErrorMessage: confirmNewPasswordProps.mismatchErrorMessage || _PasswordChangeBoxDefaults_js__WEBPACK_IMPORTED_MODULE_11__.default.confirmNewPassword.messages.mismatch
       };
@@ -642,12 +666,14 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
 
 
 PasswordChangeBox.propTypes = {
-  framed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   disabled: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   readOnly: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   requireExistingPassword: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   canReveal: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   underlined: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+  framed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+  fixed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+  centered: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   titleProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   existingPasswordProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   newPasswordProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
@@ -911,9 +937,11 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
       password: '',
       hasInteracted: false,
       showRulesCallout: true,
-      canShowRulesCallout: false
+      canShowRulesCallout: false,
+      showStrengthIndicator: true
     };
     _this._handlePasswordFocused = _this._handlePasswordFocused.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
+    _this._handlePasswordBlured = _this._handlePasswordBlured.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
     _this._handlePasswordChanged = _this._handlePasswordChanged.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
     _this._getPasswordFieldErrorMessage = _this._getPasswordFieldErrorMessage.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
     _this._handlePasswordStatusCalloutDismiss = _this._handlePasswordStatusCalloutDismiss.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this));
@@ -994,13 +1022,37 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "_handlePasswordFocused",
     value: function _handlePasswordFocused(event) {
-      event.preventDefault();
-
       if (!!this.state.password) {
         this.setState({
           showRulesCallout: true
         });
       }
+
+      this.setState({
+        showStrengthIndicator: true
+      });
+
+      if (this.props.onFocus != null) {
+        this.props.onFocus(event);
+      }
+    }
+  }, {
+    key: "_handlePasswordBlured",
+    value: function _handlePasswordBlured(event) {
+      this.setState({
+        showStrengthIndicator: this._shouldShowOnBlur()
+      });
+
+      if (this.props.onBlur != null) {
+        this.props.onBlur(event);
+      }
+    }
+  }, {
+    key: "_shouldShowOnBlur",
+    value: function _shouldShowOnBlur() {
+      var strengthProps = this._getPasswordStrengthProps();
+
+      return !strengthProps.hideOnBlur;
     }
   }, {
     key: "render",
@@ -1017,6 +1069,8 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
 
       var placeholder = this._getPlaceholder();
 
+      var description = this._getDescription();
+
       var canReveal = this._canReveal();
 
       var disabled = this._isDisabled();
@@ -1029,19 +1083,23 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
 
       var readOnly = this._isReadOnly();
 
+      var autoComplete = this._isAutoComplete() ? 'on' : 'off';
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__.TextField, {
         type: "password",
         label: label,
         placeholder: placeholder,
+        description: description,
         canRevealPassword: canReveal,
         disabled: disabled,
         required: required,
         onChange: this._handlePasswordChanged,
         onFocus: this._handlePasswordFocused,
+        onBlur: this._handlePasswordBlured,
         onGetErrorMessage: this._getPasswordFieldErrorMessage,
         className: className,
         underlined: underlined,
-        readOnly: readOnly
+        readOnly: readOnly,
+        autoComplete: autoComplete
       });
     }
   }, {
@@ -1053,6 +1111,11 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
     key: "_getPlaceholder",
     value: function _getPlaceholder() {
       return this.props.placeholder || _PasswordBoxDefaults_js__WEBPACK_IMPORTED_MODULE_9__.default.placeholder;
+    }
+  }, {
+    key: "_getDescription",
+    value: function _getDescription() {
+      return this.props.description || _PasswordBoxDefaults_js__WEBPACK_IMPORTED_MODULE_9__.default.description;
     }
   }, {
     key: "_canReveal",
@@ -1085,11 +1148,17 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
       return !!this.props.readOnly;
     }
   }, {
+    key: "_isAutoComplete",
+    value: function _isAutoComplete() {
+      return !!this.props.autoComplete;
+    }
+  }, {
     key: "_renderPasswordStrengthIndicator",
     value: function _renderPasswordStrengthIndicator() {
       var strengthProps = this._getPasswordStrengthProps();
 
-      var showIndicator = !!strengthProps.style && strengthProps.style != _StrengthIndicatorStyles_js__WEBPACK_IMPORTED_MODULE_10__.default.none && strengthProps.level != null;
+      var showIndicator = this._shouldShowStrengthIndicator(strengthProps);
+
       return showIndicator && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_PasswordStrengthIndicator_jsx__WEBPACK_IMPORTED_MODULE_11__.default, {
         style: strengthProps.style,
         strengthPercent: strengthProps.percent,
@@ -1105,15 +1174,22 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
         style: strengthProps.style || _PasswordBoxDefaults_js__WEBPACK_IMPORTED_MODULE_9__.default.strength.style,
         percent: strengthProps.percent || 0,
         level: strengthProps.level || null,
-        text: strengthProps.text || null
+        text: strengthProps.text || null,
+        hideOnBlur: strengthProps.hasOwnProperty('hideOnBlur') ? !!strengthProps.hideOnBlur : false
       };
+    }
+  }, {
+    key: "_shouldShowStrengthIndicator",
+    value: function _shouldShowStrengthIndicator(strengthProps) {
+      return !!strengthProps.style && strengthProps.style != _StrengthIndicatorStyles_js__WEBPACK_IMPORTED_MODULE_10__.default.none && strengthProps.level != null && this.state.showStrengthIndicator;
     }
   }, {
     key: "_renderPasswordRulesCallout",
     value: function _renderPasswordRulesCallout() {
       var passwordRulesProps = this._getPasswordRulesProps();
 
-      var showRulesCallout = this.state.canShowRulesCallout && this.state.showRulesCallout && passwordRulesProps.rules.length > 0;
+      var showRulesCallout = this._shouldShowRulesCallout(passwordRulesProps);
+
       return showRulesCallout && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_PasswordStatusCallout_jsx__WEBPACK_IMPORTED_MODULE_12__.default, {
         rules: passwordRulesProps.rules,
         iconProps: passwordRulesProps.icons,
@@ -1135,6 +1211,11 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
       };
     }
   }, {
+    key: "_shouldShowRulesCallout",
+    value: function _shouldShowRulesCallout(passwordRulesProps) {
+      return this.state.canShowRulesCallout && this.state.showRulesCallout && passwordRulesProps.rules.length > 0;
+    }
+  }, {
     key: "_handlePasswordStatusCalloutDismiss",
     value: function _handlePasswordStatusCalloutDismiss() {
       this.setState({
@@ -1150,25 +1231,29 @@ var PasswordBox = /*#__PURE__*/function (_React$Component) {
 PasswordBox.propTypes = {
   label: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
   placeholder: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
+  description: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
   canReveal: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   disabled: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   underlined: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   readOnly: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+  autoComplete: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   required: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   emptyErrorMessage: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
   passwordStrengthProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   passwordRulesProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   onPasswordChanged: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
   onPasswordBoxInitialized: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
-  onPasswordBoxDisposed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func)
+  onPasswordBoxDisposed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
+  onFocus: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
+  onBlur: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func)
 };
 
 /***/ }),
 /* 3 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_14187__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_16288__) => {
 
-__nested_webpack_require_14187__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_14187__.d(__webpack_exports__, {
+__nested_webpack_require_16288__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_16288__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _classCallCheck)
 /* harmony export */ });
 function _classCallCheck(instance, Constructor) {
@@ -1179,10 +1264,10 @@ function _classCallCheck(instance, Constructor) {
 
 /***/ }),
 /* 4 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_14668__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_16769__) => {
 
-__nested_webpack_require_14668__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_14668__.d(__webpack_exports__, {
+__nested_webpack_require_16769__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_16769__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _createClass)
 /* harmony export */ });
 function _defineProperties(target, props) {
@@ -1203,10 +1288,10 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 /***/ }),
 /* 5 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_15549__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_17650__) => {
 
-__nested_webpack_require_15549__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_15549__.d(__webpack_exports__, {
+__nested_webpack_require_17650__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_17650__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _assertThisInitialized)
 /* harmony export */ });
 function _assertThisInitialized(self) {
@@ -1219,13 +1304,13 @@ function _assertThisInitialized(self) {
 
 /***/ }),
 /* 6 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_16053__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_18154__) => {
 
-__nested_webpack_require_16053__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_16053__.d(__webpack_exports__, {
+__nested_webpack_require_18154__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_18154__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _inherits)
 /* harmony export */ });
-/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_16053__(7);
+/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_18154__(7);
 
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -1244,10 +1329,10 @@ function _inherits(subClass, superClass) {
 
 /***/ }),
 /* 7 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_16937__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_19038__) => {
 
-__nested_webpack_require_16937__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_16937__.d(__webpack_exports__, {
+__nested_webpack_require_19038__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_19038__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _setPrototypeOf)
 /* harmony export */ });
 function _setPrototypeOf(o, p) {
@@ -1261,14 +1346,14 @@ function _setPrototypeOf(o, p) {
 
 /***/ }),
 /* 8 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_17442__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_19543__) => {
 
-__nested_webpack_require_17442__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_17442__.d(__webpack_exports__, {
+__nested_webpack_require_19543__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_19543__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _possibleConstructorReturn)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_17442__(9);
-/* harmony import */ var _assertThisInitialized_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_17442__(5);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_19543__(9);
+/* harmony import */ var _assertThisInitialized_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_19543__(5);
 
 
 function _possibleConstructorReturn(self, call) {
@@ -1283,10 +1368,10 @@ function _possibleConstructorReturn(self, call) {
 
 /***/ }),
 /* 9 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_18403__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_20504__) => {
 
-__nested_webpack_require_18403__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_18403__.d(__webpack_exports__, {
+__nested_webpack_require_20504__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_20504__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _typeof)
 /* harmony export */ });
 function _typeof(obj) {
@@ -1307,10 +1392,10 @@ function _typeof(obj) {
 
 /***/ }),
 /* 10 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_19134__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_21235__) => {
 
-__nested_webpack_require_19134__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_19134__.d(__webpack_exports__, {
+__nested_webpack_require_21235__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_21235__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _getPrototypeOf)
 /* harmony export */ });
 function _getPrototypeOf(o) {
@@ -1340,20 +1425,21 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__13__;
 
 /***/ }),
 /* 14 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_19934__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_22035__) => {
 
-__nested_webpack_require_19934__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_19934__.d(__webpack_exports__, {
+__nested_webpack_require_22035__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_22035__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_19934__(13);
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_19934__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _StrengthIndicatorStyles__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_19934__(15);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_22035__(13);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_22035__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _StrengthIndicatorStyles__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_22035__(15);
 
 
 var PasswordBoxDefaults = {
   label: 'Password:',
   placeholder: 'Please fill in the password',
+  description: '',
   messages: {
     empty: 'You must fill in the password'
   },
@@ -1393,10 +1479,10 @@ var PasswordBoxDefaults = {
 
 /***/ }),
 /* 15 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_21602__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_23722__) => {
 
-__nested_webpack_require_21602__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_21602__.d(__webpack_exports__, {
+__nested_webpack_require_23722__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_23722__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var StrengthIndicatorStyles = {
@@ -1409,26 +1495,26 @@ var StrengthIndicatorStyles = {
 
 /***/ }),
 /* 16 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_22124__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_24244__) => {
 
-__nested_webpack_require_22124__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_22124__.d(__webpack_exports__, {
+__nested_webpack_require_24244__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_24244__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ PasswordStrengthIndicator)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_22124__(17);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_22124__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_22124__(4);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_22124__(6);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_22124__(8);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_22124__(10);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_22124__(11);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_22124__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_22124__(12);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__nested_webpack_require_22124__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _StrengthIndicatorStyles__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_22124__(15);
-/* harmony import */ var _strengthIndicatorStyles_Bar_jsx__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_22124__(18);
-/* harmony import */ var _strengthIndicatorStyles_IntermittentBar_jsx__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_22124__(20);
-/* harmony import */ var _strengthIndicatorStyles_TextOnly_jsx__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_22124__(19);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_24244__(17);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_24244__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_24244__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_24244__(6);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_24244__(8);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_24244__(10);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_24244__(11);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_24244__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_24244__(12);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__nested_webpack_require_24244__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _StrengthIndicatorStyles__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_24244__(15);
+/* harmony import */ var _strengthIndicatorStyles_Bar_jsx__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_24244__(18);
+/* harmony import */ var _strengthIndicatorStyles_IntermittentBar_jsx__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_24244__(20);
+/* harmony import */ var _strengthIndicatorStyles_TextOnly_jsx__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_24244__(19);
 
 
 
@@ -1524,10 +1610,10 @@ PasswordStrengthIndicator.propTypes = {
 
 /***/ }),
 /* 17 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_28372__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nested_webpack_require_30492__) => {
 
-__nested_webpack_require_28372__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_28372__.d(__webpack_exports__, {
+__nested_webpack_require_30492__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_30492__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _defineProperty)
 /* harmony export */ });
 function _defineProperty(obj, key, value) {
@@ -1547,22 +1633,22 @@ function _defineProperty(obj, key, value) {
 
 /***/ }),
 /* 18 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_28935__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_31055__) => {
 
-__nested_webpack_require_28935__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_28935__.d(__webpack_exports__, {
+__nested_webpack_require_31055__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_31055__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ StrengthIndicatorBar)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_28935__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_28935__(4);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_28935__(6);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_28935__(8);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_28935__(10);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_28935__(11);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_28935__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_28935__(12);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_28935__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _TextOnly_jsx__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_28935__(19);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_31055__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_31055__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_31055__(6);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_31055__(8);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_31055__(10);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_31055__(11);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_31055__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_31055__(12);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_31055__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _TextOnly_jsx__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_31055__(19);
 
 
 
@@ -1654,21 +1740,21 @@ StrengthIndicatorBar.propTypes = {
 
 /***/ }),
 /* 19 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_34199__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_36319__) => {
 
-__nested_webpack_require_34199__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_34199__.d(__webpack_exports__, {
+__nested_webpack_require_36319__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_36319__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ StrengthIndicatorTextOnly)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_34199__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_34199__(4);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_34199__(6);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_34199__(8);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_34199__(10);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_34199__(11);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_34199__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_34199__(12);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_34199__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_36319__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_36319__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_36319__(6);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_36319__(8);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_36319__(10);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_36319__(11);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_36319__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_36319__(12);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_36319__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -1741,23 +1827,23 @@ StrengthIndicatorTextOnly.propTypes = {
 
 /***/ }),
 /* 20 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_38558__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_40678__) => {
 
-__nested_webpack_require_38558__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_38558__.d(__webpack_exports__, {
+__nested_webpack_require_40678__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_40678__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ StrengthIndicatorIntermittentBar)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_38558__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_38558__(4);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_38558__(6);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_38558__(8);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_38558__(10);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_38558__(11);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_38558__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_38558__(12);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_38558__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _TextOnly_jsx__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_38558__(19);
-/* harmony import */ var _PasswordStrengthLevels_js__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_38558__(21);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_40678__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_40678__(4);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_40678__(6);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_40678__(8);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_40678__(10);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_40678__(11);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_40678__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_40678__(12);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_40678__.n(prop_types__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _TextOnly_jsx__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_40678__(19);
+/* harmony import */ var _PasswordStrengthLevels_js__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_40678__(21);
 
 
 
@@ -1868,10 +1954,10 @@ StrengthIndicatorIntermittentBar.propTypes = {
 
 /***/ }),
 /* 21 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_44747__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_46867__) => {
 
-__nested_webpack_require_44747__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_44747__.d(__webpack_exports__, {
+__nested_webpack_require_46867__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_46867__.d(__webpack_exports__, {
 /* harmony export */   "PasswordStrengthLevels": () => (/* binding */ PasswordStrengthLevels),
 /* harmony export */   "getAllAvailableLevels": () => (/* binding */ getAllAvailableLevels),
 /* harmony export */   "getAvailableLevelCount": () => (/* binding */ getAvailableLevelCount)
@@ -1941,25 +2027,25 @@ function getAvailableLevelCount() {
 
 /***/ }),
 /* 22 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_46643__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_48763__) => {
 
-__nested_webpack_require_46643__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_46643__.d(__webpack_exports__, {
+__nested_webpack_require_48763__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_48763__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ PasswordStatusCallout)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_46643__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_46643__(4);
-/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_46643__(5);
-/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_46643__(6);
-/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_46643__(8);
-/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_46643__(10);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_46643__(11);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_46643__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_46643__(12);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__nested_webpack_require_46643__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_46643__(13);
-/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__nested_webpack_require_46643__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _PasswordBoxDefaults_js__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_46643__(14);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_48763__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_48763__(4);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_48763__(5);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_48763__(6);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_48763__(8);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_48763__(10);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_48763__(11);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_48763__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_48763__(12);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__nested_webpack_require_48763__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_48763__(13);
+/* harmony import */ var _fluentui_react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__nested_webpack_require_48763__.n(_fluentui_react__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _PasswordBoxDefaults_js__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_48763__(14);
 
 
 
@@ -2132,14 +2218,14 @@ PasswordStatusCallout.propTypes = {
 
 /***/ }),
 /* 23 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_55230__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_57350__) => {
 
-__nested_webpack_require_55230__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_55230__.d(__webpack_exports__, {
+__nested_webpack_require_57350__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_57350__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ PasswordCallbackRule)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_55230__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_55230__(4);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_57350__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_57350__(4);
 
 
 
@@ -2177,14 +2263,14 @@ var PasswordCallbackRule = /*#__PURE__*/function () {
 
 /***/ }),
 /* 24 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_56579__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_58699__) => {
 
-__nested_webpack_require_56579__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_56579__.d(__webpack_exports__, {
+__nested_webpack_require_58699__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_58699__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ PasswordRegexRule)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_56579__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_56579__(4);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_58699__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_58699__(4);
 
 
 
@@ -2222,14 +2308,14 @@ var PasswordRegexRule = /*#__PURE__*/function () {
 
 /***/ }),
 /* 25 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_57906__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_60026__) => {
 
-__nested_webpack_require_57906__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_57906__.d(__webpack_exports__, {
+__nested_webpack_require_60026__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_60026__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ PasswordLengthRule)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_57906__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_57906__(4);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_60026__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_60026__(4);
 
 
 
@@ -2266,15 +2352,15 @@ var PasswordLengthRule = /*#__PURE__*/function () {
 
 /***/ }),
 /* 26 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_59328__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_61448__) => {
 
-__nested_webpack_require_59328__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_59328__.d(__webpack_exports__, {
+__nested_webpack_require_61448__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_61448__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ PasswordEvaluator)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_59328__(3);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_59328__(4);
-/* harmony import */ var _PasswordStrengthLevels_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_59328__(21);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_61448__(3);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_61448__(4);
+/* harmony import */ var _PasswordStrengthLevels_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_61448__(21);
 
 
 
@@ -2353,7 +2439,7 @@ var PasswordEvaluator = /*#__PURE__*/function () {
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_61959__(moduleId) {
+/******/ 	function __nested_webpack_require_64079__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
@@ -2367,7 +2453,7 @@ var PasswordEvaluator = /*#__PURE__*/function () {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_61959__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_64079__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -2377,11 +2463,11 @@ var PasswordEvaluator = /*#__PURE__*/function () {
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_61959__.n = (module) => {
+/******/ 		__nested_webpack_require_64079__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
-/******/ 			__nested_webpack_require_61959__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_64079__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -2389,9 +2475,9 @@ var PasswordEvaluator = /*#__PURE__*/function () {
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_61959__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_64079__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_61959__.o(definition, key) && !__nested_webpack_require_61959__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_64079__.o(definition, key) && !__nested_webpack_require_64079__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -2400,13 +2486,13 @@ var PasswordEvaluator = /*#__PURE__*/function () {
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_61959__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 		__nested_webpack_require_64079__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_61959__.r = (exports) => {
+/******/ 		__nested_webpack_require_64079__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -2418,8 +2504,8 @@ var PasswordEvaluator = /*#__PURE__*/function () {
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-__nested_webpack_require_61959__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_61959__.d(__webpack_exports__, {
+__nested_webpack_require_64079__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_64079__.d(__webpack_exports__, {
 /* harmony export */   "PasswordBox": () => (/* reexport safe */ _PasswordBox_jsx__WEBPACK_IMPORTED_MODULE_0__.default),
 /* harmony export */   "PasswordCallbackRule": () => (/* reexport safe */ _rules_PasswordCallbackRule_js__WEBPACK_IMPORTED_MODULE_1__.default),
 /* harmony export */   "PasswordRegexRule": () => (/* reexport safe */ _rules_PasswordRegexRule_js__WEBPACK_IMPORTED_MODULE_2__.default),
@@ -2431,14 +2517,14 @@ __nested_webpack_require_61959__.r(__webpack_exports__);
 /* harmony export */   "getAllAvailableLevels": () => (/* reexport safe */ _PasswordStrengthLevels_js__WEBPACK_IMPORTED_MODULE_7__.getAllAvailableLevels),
 /* harmony export */   "getAvailableLevelCount": () => (/* reexport safe */ _PasswordStrengthLevels_js__WEBPACK_IMPORTED_MODULE_7__.getAvailableLevelCount)
 /* harmony export */ });
-/* harmony import */ var _PasswordBox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_61959__(2);
-/* harmony import */ var _rules_PasswordCallbackRule_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_61959__(23);
-/* harmony import */ var _rules_PasswordRegexRule_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_61959__(24);
-/* harmony import */ var _rules_PasswordLengthRule_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_61959__(25);
-/* harmony import */ var _rules_PasswordEvaluator_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_61959__(26);
-/* harmony import */ var _PasswordStrengthIndicator_jsx__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_61959__(16);
-/* harmony import */ var _StrengthIndicatorStyles_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_61959__(15);
-/* harmony import */ var _PasswordStrengthLevels_js__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_61959__(21);
+/* harmony import */ var _PasswordBox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_64079__(2);
+/* harmony import */ var _rules_PasswordCallbackRule_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_64079__(23);
+/* harmony import */ var _rules_PasswordRegexRule_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_64079__(24);
+/* harmony import */ var _rules_PasswordLengthRule_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_64079__(25);
+/* harmony import */ var _rules_PasswordEvaluator_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_64079__(26);
+/* harmony import */ var _PasswordStrengthIndicator_jsx__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_64079__(16);
+/* harmony import */ var _StrengthIndicatorStyles_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_64079__(15);
+/* harmony import */ var _PasswordStrengthLevels_js__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_64079__(21);
 
 
 
@@ -2471,6 +2557,7 @@ var PasswordChangeBoxDefaults = {
   existingPassword: {
     label: 'Current password:',
     placeholder: 'Please enter your current password',
+    description: '',
     messages: {
       empty: 'You must fill in your current password'
     }
@@ -2478,6 +2565,7 @@ var PasswordChangeBoxDefaults = {
   newPassword: {
     label: 'New password:',
     placeholder: 'Please enter your new password',
+    description: '',
     messages: {
       empty: 'You must fill in your new password'
     }
@@ -2485,6 +2573,7 @@ var PasswordChangeBoxDefaults = {
   confirmNewPassword: {
     label: 'Password confirmation:',
     placeholder: 'Please confirm new password',
+    description: '',
     messages: {
       empty: 'You must confirm your new password',
       mismatch: 'The new password confirmation does not match the new password'

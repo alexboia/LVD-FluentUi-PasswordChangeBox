@@ -6,6 +6,7 @@ const PasswordChangeBoxDefaults = {
 	existingPassword: {
 		label: 'Current password:',
 		placeholder: 'Please enter your current password',
+		description: '',
 		messages: {
 			empty: 'You must fill in your current password'
 		}
@@ -14,6 +15,7 @@ const PasswordChangeBoxDefaults = {
 	newPassword: {
 		label: 'New password:',
 		placeholder: 'Please enter your new password',
+		description: '',
 		messages: {
 			empty: 'You must fill in your new password'
 		}
@@ -22,6 +24,7 @@ const PasswordChangeBoxDefaults = {
 	confirmNewPassword: {
 		label: 'Password confirmation:',
 		placeholder: 'Please confirm new password',
+		description: '',
 		messages: {
 			empty: 'You must confirm your new password',
 			mismatch: 'The new password confirmation does not match the new password'

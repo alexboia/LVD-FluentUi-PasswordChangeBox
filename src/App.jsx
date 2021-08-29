@@ -63,6 +63,8 @@ export default class App extends React.Component {
 
 	_changePassword(values) {
 		this._setBusy(true);
+		this._clearChangePasswordResult();
+
 		const passwordChangeService = new FakePasswordChangeService({
 			requireExistingPassword: false
 		});
@@ -70,6 +72,12 @@ export default class App extends React.Component {
 		passwordChangeService.changePassword(values, (resultMessage) => {
 			this._setBusy(false);
 			this._setPasswordChangeResult(resultMessage);
+		});
+	}
+
+	_clearChangePasswordResult() {
+		this.setState({
+			passwordChangeMessage: null
 		});
 	}
 
@@ -109,19 +117,31 @@ export default class App extends React.Component {
 			<div className="lvd-passwordchangebox-demo-container">
 				<PasswordChangeBox 
 					disabled={this.state.working}
-					requireExistingPassword={false}
+					requireExistingPassword={true}
+					fixed={true}
+					framed={false}
+					centered={true}
 
 					messageProps={this.state.passwordChangeMessage}
 
+					existingPasswordProps={{
+						description: 'Yes, we are afraid this is really necessary.'
+					}}
+
 					newPasswordProps={{
-						passwordStrengthProps: {
+						passwordStrengthProps: {	
 							style: StrengthIndicatorStyles.intermittentBar,
 							level: newPasswordStrengthLevel,
 							text: newPasswordStrengthText
 						},
 						passwordRulesProps: {
 							rules: newPasswordRules
-						}
+						},
+						description: 'Yes, it must NOT be the same as your old one'
+					}}
+
+					confirmNewPasswordProps={{
+						description: 'Becasue, let us face it, we have all been there: all new password, but immediately forgotten!'
 					}}
 
 					backActionButtonProps={{
