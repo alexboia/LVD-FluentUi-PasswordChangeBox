@@ -14,6 +14,17 @@ Here's a screenshot of how it all looks like [using the default styling](https:/
 	<img align="center" src="https://raw.githubusercontent.com/alexboia/LVD-FluentUi-PasswordChangeBox/main/docs/Sample.png" style="margin-bottom: 20px; margin-right: 20px; border-radius: 5px;" />
 </p>
 
+## Contents
+1. [Installation](#pcb-installation)
+2. [Demo](#pcb-demo)
+3. [Basic Usage](#pcb-basic-usage)
+4. [Styling](#pcb-styling)
+5. [Building](#pcb-building)
+6. [Customization Options](#pcb-customization)
+7. [Events](#pcb-events)
+8. [Changelog](#pcb-changelog)
+9. [Donate](#pcb-donate)
+
 ## Installation
 <a name="pcb-installation"></a>
 
@@ -165,7 +176,6 @@ Example:
 	...
 />
 ```
-
 
 ### Existing Password Customization Object
 
