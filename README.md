@@ -115,6 +115,7 @@ npm run build
 | Allow user to reveal password | `canReveal` | `boolean` | Defaults to `true` |
 | Whether or not to require existing password | `requireExistingPassword` | `boolean` | Defaults to `true` |
 | Component title | `titleProps` | `Title Customization Object` | See below. |
+| Message | `messageProps` | `Message Object` | See below. By default no message is shown. |
 | Customize the existing password field | `existingPasswordProps` | `Existing Password Customization Object` | Only used when `requireExistingPassword={true}`. See below. |
 | Customize the new password field | `newPasswordProps` | `New Password Customization Object` | See below. |
 | Customize the password confirmation field | `confirmNewPasswordProps` | `Confirm New Password Customization Object` | See below. |
@@ -142,6 +143,29 @@ Example:
 	...
 />
 ```
+
+### Message Object
+
+A plain javascript object with the following properties:
+
+| Name | Type | Notes |
+| --- | --- | --- |
+| `message` | `string` | The actual message to be displayed. Defaults to `null` if not specified.  |
+| `type` | `PasswordChangeBoxMessageType` | Type of message - used for formatting (error, warning etc.). Defaults to `null` if not specified. See [here for all supported values](https://github.com/alexboia/LVD-FluentUi-PasswordChangeBox/blob/main/src/components/PasswordChangeBoxMessageType.js). |
+
+Example:
+
+```javascript
+<PasswordChangeBox 
+	...
+	messageProps={{
+		message: "The existing password you entered was invalid",
+		type: PasswordChangeBoxMessageType.error
+	}}
+	...
+/>
+```
+
 
 ### Existing Password Customization Object
 
