@@ -327,7 +327,8 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
-        className: this._computeContainerCssClassName()
+        className: this._computeContainerCssClassName(),
+        style: this._getStyle()
       }, this._renderTitle(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
         className: "lvd-passwordchange-box-fields-container"
       }, this._renderMessage(), this._renderExistingPasswordInputField(), this._renderNewPasswordInputField(), this._renderPasswordConfirmationField()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", {
@@ -380,6 +381,11 @@ var PasswordChangeBox = /*#__PURE__*/function (_React$Component) {
     key: "_getClassName",
     value: function _getClassName() {
       return this.props.className || null;
+    }
+  }, {
+    key: "_getStyle",
+    value: function _getStyle() {
+      return this.props.style || {};
     }
   }, {
     key: "_renderTitle",
@@ -698,10 +704,12 @@ PasswordChangeBox.propTypes = {
   requireExistingPassword: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   canReveal: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   underlined: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+  messageProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   framed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   fixed: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   centered: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   className: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
+  style: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   titleProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   existingPasswordProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),
   newPasswordProps: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object),

@@ -2,6 +2,8 @@
 
 *Background music: [Gary Moore - The Loner - Live at Hammersmith Odeon](https://www.youtube.com/watch?v=dAHOLlLBoUA)*.
 
+[![NPM](https://nodei.co/npm/lvd-fluentui-passwordchangebox.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/lvd-fluentui-passwordchangebox/)
+
 A ReactJS password change box built using the [FluentUI library](https://github.com/microsoft/fluentui).
 It features a basic structure with some options to customize the overall structure and layout:
 
