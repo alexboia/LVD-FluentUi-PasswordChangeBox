@@ -44,7 +44,7 @@ The `demo` directory contains [a compiled and ready-to-run example](https://gith
 import React from 'react';
 import { PasswordChangeBox } from 'lvd-fluentui-passwordchangebox';
 
-class PasswordChangeBox extends React.Component {
+class PasswordChangeBoxPage extends React.Component {
 	constructor(props) {
 		super(props);
 
