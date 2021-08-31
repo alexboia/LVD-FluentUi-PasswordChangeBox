@@ -114,19 +114,19 @@ npm run build
 
 ## Forwarded APIs
 
-For convenience, the following APIs are forwarded from the underlying [password box component](https://github.com/alexboia/LVD-FluentUi-PasswordBox):
+From version 0.0.3 onwards, for convenience, the following API artefacts are forwarded from the underlying [password box component](https://github.com/alexboia/LVD-FluentUi-PasswordBox):
 
-- PasswordCallbackRule,
-- PasswordRegexRule,
-- PasswordEvaluator,
-- PasswordLengthRule,
+- `PasswordCallbackRule`,
+- `PasswordRegexRule`,
+- `PasswordEvaluator`,
+- `PasswordLengthRule`,
 
-- PasswordStrengthIndicator,
-- StrengthIndicatorStyles,
-- PasswordStrengthLevels,
+- `PasswordStrengthIndicator`,
+- `StrengthIndicatorStyles`,
+- `PasswordStrengthLevels`,
 
-- getAllAvailableLevels,
-- getAvailableLevelCount.
+- `getAllAvailableLevels`,
+- `getAvailableLevelCount`.
 
 ## Customization Options
 <a name="pcb-customization"></a>
