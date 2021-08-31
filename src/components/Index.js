@@ -10,7 +10,33 @@ import {
 
 import PasswordChangeBox from './PasswordChangeBox.jsx';
 
+import {
+	PasswordCallbackRule,
+	PasswordRegexRule,
+	PasswordEvaluator,
+	PasswordLengthRule,
+
+	PasswordStrengthIndicator,
+	StrengthIndicatorStyles,
+	PasswordStrengthLevels,
+	
+	getAllAvailableLevels,
+	getAvailableLevelCount
+} from 'lvd-fluentui-passwordbox';
+
 export {
+	PasswordCallbackRule,
+	PasswordRegexRule,
+	PasswordEvaluator,
+	PasswordLengthRule,
+
+	PasswordStrengthIndicator,
+	StrengthIndicatorStyles,
+	PasswordStrengthLevels,
+	
+	getAllAvailableLevels,
+	getAvailableLevelCount,
+
 	successMessage,
 	errorMessage,
 	warningMessage,
