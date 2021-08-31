@@ -2701,6 +2701,15 @@ var __webpack_exports__ = {};
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PasswordCallbackRule": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.PasswordCallbackRule),
+/* harmony export */   "PasswordRegexRule": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.PasswordRegexRule),
+/* harmony export */   "PasswordEvaluator": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.PasswordEvaluator),
+/* harmony export */   "PasswordLengthRule": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.PasswordLengthRule),
+/* harmony export */   "PasswordStrengthIndicator": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.PasswordStrengthIndicator),
+/* harmony export */   "StrengthIndicatorStyles": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.StrengthIndicatorStyles),
+/* harmony export */   "PasswordStrengthLevels": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.PasswordStrengthLevels),
+/* harmony export */   "getAllAvailableLevels": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.getAllAvailableLevels),
+/* harmony export */   "getAvailableLevelCount": () => (/* reexport safe */ lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__.getAvailableLevelCount),
 /* harmony export */   "successMessage": () => (/* reexport safe */ _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__.successMessage),
 /* harmony export */   "errorMessage": () => (/* reexport safe */ _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__.errorMessage),
 /* harmony export */   "warningMessage": () => (/* reexport safe */ _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__.warningMessage),
@@ -2713,6 +2722,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BackButtonPositions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _PasswordChangeBoxUtility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
 /* harmony import */ var _PasswordChangeBox_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
+/* harmony import */ var lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
+/* harmony import */ var lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lvd_fluentui_passwordbox__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
