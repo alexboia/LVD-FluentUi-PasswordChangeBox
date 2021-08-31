@@ -331,6 +331,10 @@ The password change values are exported as a plain javascript object with the fo
 ## Changelog
 <a name="pcb-changelog"></a>
 
+### Version 0.0.2
+
+- Minor styling update.
+
 ### Version 0.0.1
 
 - First tracked version.
