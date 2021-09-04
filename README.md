@@ -134,11 +134,11 @@ From version 0.0.3 onwards, for convenience, the following API artefacts are for
 | What | Prop Name | Type | Notes |
 | --- | --- | --- | --- |
 | Disable component | `disabled` | `boolean` | Cascades to all fields and buttons. Defaults to `false`. |
-| Configure whether to use framed container layout or not | `framed` | `boolean` | If true, it will display the default shadow-box frame. Defaults to `true`. |
-| Configure whether to use built-in fixed-width container layout or not | `fixed` | `boolean` | If true, it will set the container width to the default width of `500px`. Defaults to `true`. |
-| Configure whether to center the container or not | `centered` | `boolean` | If true, it will attempt to center the container. Defaults to `true`. |
+| Configure whether to use framed container layout or not | `framed` | `boolean` | If `true`, it will display the default shadow-box frame. Defaults to `true`. |
+| Configure whether to use built-in fixed-width container layout or not | `fixed` | `boolean` | If `true`, it will set the container width to the default width of `600px`. Defaults to `true`. |
+| Configure whether to center the container or not | `centered` | `boolean` | If `true`, it will attempt to center the container. Defaults to `true`. |
 | Set additional container css class name | `className` | `string` | Defaults to `null`. |
-| Set additional inline css style properties | `style` | `object` | Key-value plain javascript object. Defaults to `{}`. |
+| Set additional container inline css style properties | `style` | `object` | Key-value plain javascript object. Defaults to `{}`. |
 | Make component readonly | `readOnly` | `boolean` | Cascades to all fields. Defaults to `false`. |
 | Display fields in underlined style. | `underlined` | `boolean` | Defaults to `false`. |
 | Allow user to reveal password | `canReveal` | `boolean` | Defaults to `true` |
