@@ -1,6 +1,6 @@
 {
 	"name": "lvd-fluentui-passwordchangebox",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "A ReactJS password change box component built using the FluentUI library",
 	"homepage": "https://github.com/alexboia/LVD-FluentUi-PasswordChangeBox",
 	"repository": {

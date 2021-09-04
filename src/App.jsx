@@ -17,6 +17,10 @@ export default class App extends React.Component {
 			newPasswordRules: []
 		};
 
+		this._passwordChangeService = new FakePasswordChangeService({
+			requireExistingPassword: false
+		});
+
 		this._handlePasswordChangeBoxInitialized = 
 			this._handlePasswordChangeBoxInitialized.bind(this);
 		this._handlePasswordChangeBoxDisposed = 
@@ -65,11 +69,7 @@ export default class App extends React.Component {
 		this._setBusy(true);
 		this._clearChangePasswordResult();
 
-		const passwordChangeService = new FakePasswordChangeService({
-			requireExistingPassword: false
-		});
-
-		passwordChangeService.changePassword(values, (resultMessage) => {
+		this._passwordChangeService.changePassword(values, (resultMessage) => {
 			this._setBusy(false);
 			this._setPasswordChangeResult(resultMessage);
 		});

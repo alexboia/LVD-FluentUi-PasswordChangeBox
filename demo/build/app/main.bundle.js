@@ -30137,6 +30137,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       newPasswordStrengthLevel: null,
       newPasswordRules: []
     };
+    _this._passwordChangeService = new _FakePasswordChangeService_js__WEBPACK_IMPORTED_MODULE_10__.default({
+      requireExistingPassword: false
+    });
     _this._handlePasswordChangeBoxInitialized = _this._handlePasswordChangeBoxInitialized.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this));
     _this._handlePasswordChangeBoxDisposed = _this._handlePasswordChangeBoxDisposed.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this));
     _this._handlePasswordChangeValuesChanged = _this._handlePasswordChangeValuesChanged.bind((0,_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__.default)(_this));
@@ -30199,10 +30202,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       this._clearChangePasswordResult();
 
-      var passwordChangeService = new _FakePasswordChangeService_js__WEBPACK_IMPORTED_MODULE_10__.default({
-        requireExistingPassword: false
-      });
-      passwordChangeService.changePassword(values, function (resultMessage) {
+      this._passwordChangeService.changePassword(values, function (resultMessage) {
         _this2._setBusy(false);
 
         _this2._setPasswordChangeResult(resultMessage);
