@@ -347,6 +347,10 @@ The password change values are exported as a plain javascript object with the fo
 ## Changelog
 <a name="pcb-changelog"></a>
 
+### Version 0.0.5
+
+- Added type definitions.
+
 ### Version 0.0.4
 
 - Added the underlying password box CSS stylesheet to the exported stylesheet.
