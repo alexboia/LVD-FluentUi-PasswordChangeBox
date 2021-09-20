@@ -80,7 +80,7 @@ export interface IConfirmNewPasswordProps {
 }
 
 export interface IPasswordChangeButtonProps {
-	label: string;
+	label?: string;
 }
 
 export interface IBackActionButtonProps {
@@ -96,32 +96,32 @@ export interface IPasswordChangeValues {
 }
 
 export interface IPasswordChangeBoxProps {
-	disabled: boolean;
-	readOnly: boolean;
-	requireExistingPassword: boolean;
-	canReveal: boolean;
-	underlined: boolean;
+	disabled?: boolean;
+	readOnly?: boolean;
+	requireExistingPassword?: boolean;
+	canReveal?: boolean;
+	underlined?: boolean;
 
-	messageProps: IPasswordChangeBoxMessageProps;
+	messageProps?: IPasswordChangeBoxMessageProps;
 
-	framed: boolean;
-	fixed: boolean;
-	centered: boolean;
-	className: string;
-	style: React.CSSProperties;
+	framed?: boolean;
+	fixed?: boolean;
+	centered?: boolean;
+	className?: string;
+	style?: React.CSSProperties;
 
-	titleProps: IPasswordChangeBoxTitleProps;
-	existingPasswordProps: IExistingPasswordProps;
-	newPasswordProps: INewPasswordProps;
-	confirmNewPasswordProps: IConfirmNewPasswordProps;
-	passwordChangeButtonProps: IPasswordChangeButtonProps;
-	backActionButtonProps: IBackActionButtonProps;
+	titleProps?: IPasswordChangeBoxTitleProps;
+	existingPasswordProps?: IExistingPasswordProps;
+	newPasswordProps?: INewPasswordProps;
+	confirmNewPasswordProps?: IConfirmNewPasswordProps;
+	passwordChangeButtonProps?: IPasswordChangeButtonProps;
+	backActionButtonProps?: IBackActionButtonProps;
 
-	onPasswordChangedRequested: (values: IPasswordChangeValues) => void;
-	onBackRequested: (values: IPasswordChangeValues) => void;
-	onPasswordChangeValuesChanged: (oldValues: IPasswordChangeValues, newValues: IPasswordChangeValues) => void;
-	onPasswordChangeBoxInitialized: () => void;
-	onPasswordChangeBoxDisposed: (values: IPasswordChangeValues) => void;
+	onPasswordChangedRequested?: (values: IPasswordChangeValues) => void;
+	onBackRequested?: (values: IPasswordChangeValues) => void;
+	onPasswordChangeValuesChanged?: (oldValues: IPasswordChangeValues, newValues: IPasswordChangeValues) => void;
+	onPasswordChangeBoxInitialized?: () => void;
+	onPasswordChangeBoxDisposed?: (values: IPasswordChangeValues) => void;
 }
 
 export declare class PasswordChangeBox extends React.Component<IPasswordChangeBoxProps, {}> {
