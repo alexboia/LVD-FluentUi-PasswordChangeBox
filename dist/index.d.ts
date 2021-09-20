@@ -47,7 +47,7 @@ export enum PasswordChangeBoxMessageType {
 
 export interface IPasswordChangeBoxMessageProps {
 	message?: string;
-	type: PasswordChangeBoxMessageType;
+	type?: PasswordChangeBoxMessageType;
 }
 
 export interface IPasswordChangeBoxTitleProps {
